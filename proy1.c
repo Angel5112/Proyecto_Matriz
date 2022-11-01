@@ -121,6 +121,8 @@ int main()
                     if (matriz_escalar == NULL)
                     {
                         printf("\nMatriz por escalar aun no ha sido creada o es nula, creando...\n\n");
+                        printf("\n* Ingrese el escalar: ");
+                        scanf("%d", &escalar);
                         matriz_escalar = ProductoPorEscalar(escalar, matriz1);
                         Imprimir(matriz_escalar);
                         printf("\n\n");
@@ -137,6 +139,8 @@ int main()
                     if (matriz_escalar == NULL)
                     {
                         printf("\nMatriz por escalar aun no ha sido creada o es nula, creando...\n\n");
+                        printf("\n* Ingrese el escalar: ");
+                        scanf("%d", &escalar);
                         matriz_escalar = ProductoPorEscalar(escalar, matriz2);
                         Imprimir(matriz_escalar);
                         printf("\n\n");
