@@ -115,12 +115,12 @@ void Imprimir(nodef *M)
         auxpc = auxpf->nextcol;
         while (auxpc != NULL)
         {
-            printf("%d ", auxpc->valor);
+            printf("\nFila: %d, Columna: %d, Valor: %d\n", auxpf->fila, auxpc->columna, auxpc->valor);
             auxpc = auxpc->next;
         }
-        printf("\n");
-        auxpf = auxpf->nextf;   
+        auxpf = auxpf->nextf;     
     }
+    printf("\n");
 }
 
 // Funcion para buscar un elemento en una Matriz (2/7)
@@ -143,6 +143,11 @@ int ObtenerElemento(int i, int j, nodef *M)
         nodecol *tempj = NULL;
         while (auxp->fila != i)
         {
+            if (auxp->fila > i)
+            {
+                printf("\nAdvertencia: Se esta buscando un elemento en una fila no existente (Valor 0). Elemento imposible de encontrar\n\n");
+                return 0;
+            }
             auxp = auxp->nextf;
         }
         tempj = auxp->nextcol;
@@ -184,8 +189,17 @@ void AsignarElemento(int i, int j, int x, nodef *M)
         nodef *auxfp = M;
         nodecol *auxcp = NULL;
         while (auxfp->fila != i)
+        {
+            if (auxfp->fila > i)
+            {
+                printf("\nAdvertencia: Se esta buscando un elemento en una fila no existente (Valor 0). Elemento imposible de encontrar\n");
+                return;
+            }
             auxfp = auxfp->nextf;
+        }
+
         auxcp = auxfp->nextcol;
+
         while (auxcp->columna != j)
         {
             if (auxcp->next == NULL && auxcp->columna < j)

@@ -135,15 +135,18 @@ int main()
                     else
                     {
                         printf("\nSe buscara el elemento en la Matriz 1:\n");
-                        printf("El elemento es: %d\n", ObtenerElemento(f, col, matriz1));
+                        printf("El elemento es: %d\n\n", ObtenerElemento(f, col, matriz1));
                     }
                 }
                 else if (operacion == 2)
                 {
                     if (f > fila2 - 1 || col > columna2 - 1)
                         printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
-                    printf("\nSe buscara el elemento en la Matriz 2:\n");
-                    printf("El elemento es: %d\n", ObtenerElemento(f, col, matriz2));
+                    else
+                    {
+                        printf("\nSe buscara el elemento en la Matriz 2:\n");
+                        printf("El elemento es: %d\n\n", ObtenerElemento(f, col, matriz2));
+                    }
                 }
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
