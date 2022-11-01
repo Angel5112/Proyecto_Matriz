@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "matriz.h"
 
 // Declaracion de variables globales a utilizar (Dimensiones de las matrices)
@@ -32,6 +33,40 @@ int main()
         printf("Error: Filas o columnas no pueden ser menor a 0\n");
     else
     {
+        srand(time(NULL));
+
+        // Creacion de Matriz 1
+
+        printf("\nComo desea asignarle valores a la Matriz 1?\n");
+        printf("\n1 = Automaticamente (numeros del -2 al 2)\n");
+        printf("\n2 = Manualmente\n\n");
+        scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
+
+        nodef *matriz1 = NULL;
+        nodecol *tempcol = NULL;
+
+        // Llamada a funcion para la creacion de la Matriz
+
+        matriz1 = new_matrix(matriz1, tempcol, fila, columna, operacion);
+
+        operacion = 0;
+
+        // Creacion de Matriz 2
+
+        printf("\nComo desea asignarle valores a la Matriz 2?\n");
+        printf("\n1 = Automaticamente (numeros del -2 al 2)\n");
+        printf("\n2 = Manualmente\n\n");
+        scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
+
+        nodef *matriz2 = NULL;
+        nodecol *tempcol2 = NULL;
+
+        // Llamada a funcion para la creacion de la Matriz 2
+
+        matriz2 = new_matrix(matriz2, tempcol2, fila2, columna2, operacion);
+
+        operacion = 0;
+
         while (!validacion)
         {
             // Antes de esto se deben crear las matrices
@@ -39,12 +74,12 @@ int main()
 
             printf("\n*** Indique el tipo de operacion a realizar *** \n");
             printf("\n1 = Imprimir Matriz\n");
-            printf("\n2 = Buscar elemento dentro de una Matriz\n");
-            printf("\n3 = Asignar elemento en una posicion dada de una Matriz\n");
-            printf("\n4 = Multiplicar una Matriz por un escalar\n");
-            printf("\n5 = Sumar Matrices\n");
-            printf("\n6 = Transponer una Matriz\n");
-            printf("\n7 = Multiplicar Matrices\n");
+            printf("2 = Buscar elemento dentro de una Matriz\n");
+            printf("3 = Asignar elemento en una posicion dada de una Matriz\n");
+            printf("4 = Multiplicar una Matriz por un escalar\n");
+            printf("5 = Sumar Matrices\n");
+            printf("6 = Transponer una Matriz\n");
+            printf("7 = Multiplicar Matrices\n");
             printf("\nCualquier otro numero = Salir del Programa\n\n");
             scanf("%d", &operacion);
 
