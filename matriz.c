@@ -122,3 +122,45 @@ void Imprimir(nodef *M)
         auxpf = auxpf->nextf;   
     }
 }
+
+// Funcion para buscar un elemento en una Matriz (2/7)
+
+int ObtenerElemento(int i, int j, nodef *M)
+{
+    if (i < 0 || j < 0)
+    {
+        printf("\nError: fila o columna introducida es menor a 0. Elemento imposible de encontrar.\n");
+        return 0;
+    }
+    else if (M == NULL)
+    {
+        printf("\nAdvertencia: La matriz es nula, por lo tanto, el elemento a buscar es 0\n");
+        return 0;
+    }
+    else
+    {
+        nodef *auxp = M;
+        nodecol *tempj = NULL;
+        while (auxp->fila != i)
+        {
+            auxp = auxp->nextf;
+        }
+        tempj = auxp->nextcol;
+        while (tempj->columna != j)
+        {
+            if (tempj->next == NULL && tempj->columna < j)
+            {
+                printf("\nError: se esta tratando de acceder una posicion no existente (Al crear la matriz se le asigno de valor numerico un 0)\n");
+                return 0;
+            }
+            if (tempj->columna < j)
+                tempj = tempj->next;
+            else if (tempj->columna > j)
+            {
+                printf("\nError: se esta tratando de acceder una posicion no existente (Al crear la matriz se le asigno de valor numerico un 0)\n");
+                return 0;
+            }
+        }
+       return tempj->valor;
+    }
+}

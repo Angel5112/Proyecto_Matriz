@@ -37,7 +37,7 @@ int main()
 
         // Creacion de Matriz 1
 
-        printf("\nComo desea asignarle valores a la Matriz 1?\n");
+        printf("\n* Como desea asignarle valores a la Matriz 1?\n");
         printf("\n1 = Automaticamente (numeros del -2 al 2)\n");
         printf("\n2 = Manualmente\n\n");
         scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
@@ -54,7 +54,7 @@ int main()
 
         // Creacion de Matriz 2
 
-        printf("\nComo desea asignarle valores a la Matriz 2?\n");
+        printf("\n* Como desea asignarle valores a la Matriz 2?\n");
         printf("\n1 = Automaticamente (numeros del -2 al 2)\n");
         printf("\n2 = Manualmente\n\n");
         scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
@@ -74,7 +74,7 @@ int main()
             // Antes de esto se deben crear las matrices
             // Menu de operaciones a utilizar en el programa
 
-            printf("\n*** Indique el tipo de operacion a realizar *** \n");
+            printf("*** Indique el tipo de operacion a realizar *** \n");
             printf("\n1 = Imprimir Matriz\n");
             printf("2 = Buscar elemento dentro de una Matriz\n");
             printf("3 = Asignar elemento en una posicion dada de una Matriz\n");
@@ -87,10 +87,10 @@ int main()
 
             // Condiciones del menu
 
-            if (operacion == 1)  // Imprimir una Matriz
+            if (operacion == 1)  // Imprimir una Matriz (1/7)
             {
                 operacion = 0;
-                printf("\nCual matriz desea imprimir?\n");
+                printf("\n* Cual matriz desea imprimir?\n");
                 printf("\n1 = Matriz 1\n");
                 printf("2 = Matriz 2\n\n");
                 scanf("%d", &operacion);
@@ -108,6 +108,41 @@ int main()
                 }
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna, volviendo al menu principal\n");
+            }
+            else if (operacion == 2) // Busqueda de elemento (2/7)
+            {
+                operacion == 0;
+                printf("\nIngrese la fila del elemento a buscar: ");
+                scanf("%d", &f);
+                printf("Ingrese la columna del elemento a buscar: ");
+                scanf("%d", &col);
+
+                printf("\n* Indique en que matriz desea buscar el elemento: \n");
+                printf("\n1 = Matriz 1\n");
+                printf("2 = Matriz 2\n\n");
+                scanf("%d", &operacion);
+
+                if (operacion == 1)
+                {
+                    if (f > fila || col > columna)
+                        printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
+                    else
+                    {
+                        printf("\nSe buscara el elemento en la Matriz 1:\n");
+                        printf("El elemento es: %d\n", ObtenerElemento(f, col, matriz1));
+                    }
+                }
+                else if (operacion == 2)
+                {
+                    if (f > fila2 || col > columna2)
+                        printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
+                    printf("\nSe buscara el elemento en la Matriz 2:\n");
+                    printf("El elemento es: %d\n", ObtenerElemento(f, col, matriz2));
+                }
+                else
+                {
+                    printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
+                }
             }
             else if (operacion < 1 || operacion > 7)
             {

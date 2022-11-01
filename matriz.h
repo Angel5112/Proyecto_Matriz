@@ -43,3 +43,7 @@ nodef *new_matrix(nodef *M, nodecol *tj, int i, int j, int op);
 // Funcion para imprimir una Matriz (1/7)
 
 void Imprimir(nodef *M);
+
+// Funcion para buscar un elemento en una Matriz (2/7)
+
+int ObtenerElemento(int i, int j, nodef *M);
