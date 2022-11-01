@@ -39,3 +39,7 @@ int valor_aleatorio();
 // Funcion para crear una nueva matriz
 
 nodef *new_matrix(nodef *M, nodecol *tj, int i, int j, int op);
+
+// Funcion para imprimir una Matriz (1/7)
+
+void Imprimir(nodef *M);

@@ -103,3 +103,22 @@ nodef *new_matrix(nodef *M, nodecol *tj, int i, int j, int op)
         return M;
     }
 }
+
+// Funcion para imprimir una Matriz (1/7)
+
+void Imprimir(nodef *M)
+{
+    nodef *auxpf = M;
+    nodecol *auxpc;
+    while (auxpf != NULL)
+    {
+        auxpc = auxpf->nextcol;
+        while (auxpc != NULL)
+        {
+            printf("%d ", auxpc->valor);
+            auxpc = auxpc->next;
+        }
+        printf("\n");
+        auxpf = auxpf->nextf;   
+    }
+}

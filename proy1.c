@@ -41,6 +41,7 @@ int main()
         printf("\n1 = Automaticamente (numeros del -2 al 2)\n");
         printf("\n2 = Manualmente\n\n");
         scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
+        printf("\n");
 
         nodef *matriz1 = NULL;
         nodecol *tempcol = NULL;
@@ -57,6 +58,7 @@ int main()
         printf("\n1 = Automaticamente (numeros del -2 al 2)\n");
         printf("\n2 = Manualmente\n\n");
         scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
+        printf("\n");
 
         nodef *matriz2 = NULL;
         nodecol *tempcol2 = NULL;
@@ -85,7 +87,29 @@ int main()
 
             // Condiciones del menu
 
-            if (operacion < 1 || operacion > 7)
+            if (operacion == 1)  // Imprimir una Matriz
+            {
+                operacion = 0;
+                printf("\nCual matriz desea imprimir?\n");
+                printf("\n1 = Matriz 1\n");
+                printf("2 = Matriz 2\n\n");
+                scanf("%d", &operacion);
+
+                // Condiciones de operacion en la seccion de Imprimir
+                if (operacion == 1)
+                {   
+                    printf("\nImprenta de la Matriz 1: \n\n");
+                    Imprimir(matriz1);
+                }
+                else if (operacion == 2)
+                {
+                    printf("\nImprenta de la Matriz 2: \n\n");
+                    Imprimir(matriz2);
+                }
+                else
+                    printf("\nError: Numero ingresado no corresponde a accion alguna, volviendo al menu principal\n");
+            }
+            else if (operacion < 1 || operacion > 7)
             {
                 printf("\nHa decidido salir del programa.\n");
                 validacion = 1;
