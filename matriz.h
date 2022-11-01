@@ -47,3 +47,7 @@ void Imprimir(nodef *M);
 // Funcion para buscar un elemento en una Matriz (2/7)
 
 int ObtenerElemento(int i, int j, nodef *M);
+
+// Funcion para Asignar un elemento de una matriz en determinada posicion (3/7)
+
+void AsignarElemento(int i, int j, int x, nodef *M);

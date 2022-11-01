@@ -164,3 +164,45 @@ int ObtenerElemento(int i, int j, nodef *M)
        return tempj->valor;
     }
 }
+
+// Funcion para Asignar un elemento de una matriz en determinada posicion (3/7)
+
+void AsignarElemento(int i, int j, int x, nodef *M)
+{
+    if (i < 0 || j < 0)
+    {
+        printf("\nError: fila o columna introducida es menor a 0. Elemento imposible de asignar.\n");
+        return;
+    }
+    else if (M == NULL)
+    {
+        printf("\nAdvertencia: Matriz es nula, por lo atento el elemento es imposible de asignar.\n");
+        return;
+    }
+    else
+    {
+        nodef *auxfp = M;
+        nodecol *auxcp = NULL;
+        while (auxfp->fila != i)
+            auxfp = auxfp->nextf;
+        auxcp = auxfp->nextcol;
+        while (auxcp->columna != j)
+        {
+            if (auxcp->next == NULL && auxcp->columna < j)
+            {        
+                printf("\nError: se esta tratando de acceder una posicion no registrada (Al crear la matriz se le asigno de valor numerico un 0)\n");
+                return;
+            }
+            if (auxcp->columna < j)
+                auxcp = auxcp->next;
+            else if (auxcp->columna > j)
+            {
+                printf("\nError: se esta tratando de acceder una posicion no registrada (Al crear la matriz se le asigno de valor numerico un 0)\n");
+                return;
+            }
+        }
+        auxcp->valor = x; // Asignar condicion cuando x = 0 (Usar free y linkear el siguiente valido)
+        printf("\nEl valor %d ha sido asignado en la fila %d columna %d\n", x, i, j);
+        return;
+    }
+}

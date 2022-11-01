@@ -74,6 +74,12 @@ int main()
             // Antes de esto se deben crear las matrices
             // Menu de operaciones a utilizar en el programa
 
+            operacion = 0;
+            f = 0;
+            col = 0;
+            v = 0;
+            escalar = 0;
+
             printf("*** Indique el tipo de operacion a realizar *** \n");
             printf("\n1 = Imprimir Matriz\n");
             printf("2 = Buscar elemento dentro de una Matriz\n");
@@ -124,7 +130,7 @@ int main()
 
                 if (operacion == 1)
                 {
-                    if (f > fila || col > columna)
+                    if (f > fila - 1 || col > columna - 1)
                         printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
                     else
                     {
@@ -134,15 +140,53 @@ int main()
                 }
                 else if (operacion == 2)
                 {
-                    if (f > fila2 || col > columna2)
+                    if (f > fila2 - 1 || col > columna2 - 1)
                         printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
                     printf("\nSe buscara el elemento en la Matriz 2:\n");
                     printf("El elemento es: %d\n", ObtenerElemento(f, col, matriz2));
                 }
                 else
-                {
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
+            }
+            else if (operacion == 3) // Asignar Elemento (3/7)
+            {
+                printf("\nIngrese la fila del elemento a cambiar: ");
+                scanf("%d", &f);
+                printf("Ingrese la columna del elemento a cambiar: ");
+                scanf("%d", &col);
+
+                printf("\n* Indique en que matriz desea asignar el elemento: \n");
+                printf("\n1 = Matriz 1\n");
+                printf("2 = Matriz 2\n\n");
+                scanf("%d", &operacion);
+                if (operacion == 1)
+                {
+                    if (f > fila - 1 || col > columna - 1)
+                        printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
+                    else
+                    {
+                        printf("\nSe asignara el elemento en la Matriz 1:\n");
+                        printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
+                        scanf("%d", &v);
+                        AsignarElemento(f, col, v, matriz1);
+                        printf("\nVolviendo al menu principal\n\n");
+                    }
                 }
+                else if (operacion == 2)
+                {
+                    if (f > fila2 - 1 || col > columna2 - 1)
+                        printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
+                    else
+                    {
+                        printf("\nSe asignara el elemento en la Matriz 2:\n");
+                        printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
+                        scanf("%d", &v);
+                        AsignarElemento(f, col, v, matriz2);
+                        printf("\nVolviendo al menu principal\n\n");
+                    }
+                }
+                else
+                    printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
             }
             else if (operacion < 1 || operacion > 7)
             {
