@@ -39,7 +39,7 @@ int main()
         // Creacion de Matriz 1
 
         printf("\n* Como desea asignarle valores a la Matriz 1?\n");
-        printf("\n1 = Automaticamente (numeros del -2 al 2)\n");
+        printf("\n1 = Automaticamente (numeros del -1 al 1)\n");
         printf("\n2 = Manualmente\n\n");
         scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
         printf("\n");
@@ -56,7 +56,7 @@ int main()
         // Creacion de Matriz 2
 
         printf("\n* Como desea asignarle valores a la Matriz 2?\n");
-        printf("\n1 = Automaticamente (numeros del -2 al 2)\n");
+        printf("\n1 = Automaticamente (numeros del -1 al 1)\n");
         printf("\n2 = Manualmente\n\n");
         scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
         printf("\n");

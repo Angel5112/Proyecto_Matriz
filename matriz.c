@@ -46,7 +46,7 @@ nodecol* add_endj(nodecol* link, nodecol* new_link)
 int valor_aleatorio()
 {
     int valor;
-    valor = rand() % 5 - 2;
+    valor = rand() % 2 - 1;
     return valor;
 }
 
@@ -75,7 +75,7 @@ nodef *new_matrix(nodef *M, nodecol *tj, int i, int j, int op)
             {
                 if (op == 1 || op < 1 || op > 2)
                 {
-                    // Llamada a funcion para generar valores aleatorios (I = [-2, 2])
+                    // Llamada a funcion para generar valores aleatorios (I = -1, 0, 1])
                     value = valor_aleatorio();
                 }
                 else if (op == 2) // Operacion 2 = Asignacion manual
@@ -115,13 +115,13 @@ void Imprimir(nodef *M)
         printf("\nAdvertencia: La matriz es nula, por lo tanto no tiene imprenta. Volviendo al menu principal\n");
         return;
     }
-
+    printf("i  j      Valor\n\n");
     while (auxpf != NULL)
     {
         auxpc = auxpf->nextcol;
         while (auxpc != NULL)
         {
-            printf("\nFila: %d, Columna: %d, Valor: %d\n", auxpf->fila, auxpc->columna, auxpc->valor);
+            printf("%d  %d      %d\n", auxpf->fila, auxpc->columna, auxpc->valor);
             auxpc = auxpc->next;
         }
         auxpf = auxpf->nextf;     
