@@ -31,13 +31,13 @@ nodecol *new_nodecol(nodecol *l, int col, int v)
 
 // Funcion para agregar un nodo al final (columnas)
 
-nodecol* add_endj(nodecol* link, nodecol* l)
+nodecol* add_endj(nodecol* link, nodecol* new_link)
 {
-    nodecol *p;
+    nodecol *auxp;
 	if (link == NULL)
-		return l;
-	for (p = link; p->next != NULL; p = p->next);
-	p->next = l;
+		return new_link;
+	for (auxp = link; auxp->next != NULL; auxp = auxp->next);
+	auxp->next = new_link;
 	return link;
 }
 
@@ -110,6 +110,12 @@ void Imprimir(nodef *M)
 {
     nodef *auxpf = M;
     nodecol *auxpc;
+    if (M == NULL)
+    {
+        printf("\nAdvertencia: La matriz es nula, por lo tanto no tiene imprenta. Volviendo al menu principal\n");
+        return;
+    }
+
     while (auxpf != NULL)
     {
         auxpc = auxpf->nextcol;
@@ -218,5 +224,44 @@ void AsignarElemento(int i, int j, int x, nodef *M)
         auxcp->valor = x; // Asignar condicion cuando x = 0 (Usar free y linkear el siguiente valido)
         printf("\nEl valor %d ha sido asignado en la fila %d columna %d\n", x, i, j);
         return;
+    }
+}
+
+// Funcion para determinar la matriz resultante del producto por un escalar (4/7)
+
+nodef *ProductoPorEscalar(int e, nodef *M)
+{
+    nodef *Me = NULL;
+    if (e == 0)   // Condicion de e = 0, resultado sera una matriz nula
+    {
+        printf("\nAdvertencia: El escalar ingresado es 0, por lo tanto se retornara una matriz nula (vacia para efectos del programa)\n");
+        return Me;
+    }
+    else
+    {
+        Me = new_nodef(Me, M->fila); // Crear el primer nodo con la fila del 1er nodo de la Matriz original
+        nodef *auxpM, *auxpMe;
+        nodecol *auxpcolM, *auxpcolMe;
+        auxpM = M;
+        auxpMe = Me;
+        while (auxpM != NULL)  // Recorriendo las filas de la matriz original
+        {
+            auxpcolM = auxpM->nextcol;
+            while (auxpcolM != NULL)    // Recorriendo las columnas de la matriz original
+            {
+                auxpcolMe = new_nodecol(auxpcolMe, auxpcolM->columna, (auxpcolM->valor * e)); // Asigna los mismos valores de la matriz original en la matriz nueva, pero ya con el producto por escalar aplicado
+                auxpMe->nextcol = add_endj(auxpMe->nextcol, auxpcolMe); // PROBLEMA ENCONTRADO, NUNCA SALE DE ESTA ITERACION!
+                auxpcolM = auxpcolM->next;
+            }
+            auxpM = auxpM->nextf;           // Cambiando a la siguiente fila de la matriz original
+            if (auxpM == NULL)      // Cortafuegos para evitar violacion de segmento
+                break;
+            else
+            {
+                auxpMe->nextf = new_nodef(auxpMe, auxpM->fila);     // Copiando el siguiente nodo de fila en la Matriz escalar
+                auxpMe = auxpMe->nextf;  
+            }
+        }
+        return Me;
     }
 }

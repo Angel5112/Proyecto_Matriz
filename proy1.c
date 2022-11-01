@@ -12,6 +12,7 @@ int main()
     // Declaracion de variables a utilizar
 
     int f, col, v, escalar, validacion, operacion;
+    nodef *matriz_escalar = NULL;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
     // Solicitud de las dimensiones de la matriz
@@ -98,7 +99,9 @@ int main()
                 operacion = 0;
                 printf("\n* Cual matriz desea imprimir?\n");
                 printf("\n1 = Matriz 1\n");
-                printf("2 = Matriz 2\n\n");
+                printf("2 = Matriz 2\n");
+                printf("3 = Matriz del Producto por Escalar de la Matriz 1\n");
+                printf("4 = Matriz del Producto por Escalar de la Matriz 1\n\n");
                 scanf("%d", &operacion);
 
                 // Condiciones de operacion en la seccion de Imprimir
@@ -111,6 +114,38 @@ int main()
                 {
                     printf("\nImprenta de la Matriz 2: \n\n");
                     Imprimir(matriz2);
+                }
+                else if (operacion == 3)
+                {
+                    printf("\nImprenta de la Matriz del Producto por Escalar de la Matriz 1\n\n");
+                    if (matriz_escalar == NULL)
+                    {
+                        printf("\nMatriz por escalar aun no ha sido creada o es nula, creando...\n\n");
+                        matriz_escalar = ProductoPorEscalar(escalar, matriz1);
+                        Imprimir(matriz_escalar);
+                        printf("\n\n");
+                    }
+                    else
+                    {
+                        Imprimir(matriz_escalar);
+                        printf("\n\n");
+                    }
+                }
+                else if (operacion == 4)
+                {
+                    printf("\nImprenta de la Matriz del Producto por Escalar de la Matriz 2\n\n");
+                    if (matriz_escalar == NULL)
+                    {
+                        printf("\nMatriz por escalar aun no ha sido creada o es nula, creando...\n\n");
+                        matriz_escalar = ProductoPorEscalar(escalar, matriz2);
+                        Imprimir(matriz_escalar);
+                        printf("\n\n");
+                    }
+                    else
+                    {
+                        Imprimir(matriz_escalar);
+                        printf("\n\n");
+                    }
                 }
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna, volviendo al menu principal\n");
@@ -187,6 +222,31 @@ int main()
                         AsignarElemento(f, col, v, matriz2);
                         printf("\nVolviendo al menu principal\n\n");
                     }
+                }
+                else
+                    printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
+            }
+            else if (operacion == 4)    // Producto por Escalar (4/7)
+            {
+                printf("\n* Ingrese el escalar: ");
+                scanf("%d", &escalar);
+
+                printf("\n* Ingrese la matriz a la cual desea calcular su producto por el escalar dado: \n");
+                printf("\n1 = Matriz 1\n");
+                printf("\n2 = Matriz 2\n\n");
+                scanf("%d", &operacion);
+
+                if (operacion == 1)
+                {
+                    printf("\nSe determinara el producto por escalar de la Matriz 1\n\n");
+                    matriz_escalar = ProductoPorEscalar(escalar, matriz1);
+                    printf("\nMatriz resultante del producto por escalar (%d) ha sido creada. Volviendo a menu principal\n\n", escalar);
+                }
+                else if (operacion == 2)
+                {
+                    printf("\nSe determinara el producto por escalar de la Matriz 2\n\n");
+                    matriz_escalar = ProductoPorEscalar(escalar, matriz2);
+                    printf("\nMatriz resultante del producto por escalar (%d) ha sido creada. Volviendo a menu principal\n\n", escalar);
                 }
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
