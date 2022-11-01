@@ -67,11 +67,11 @@ nodef *new_matrix(nodef *M, nodecol *tj, int i, int j, int op)
     {
         // Creacion y enlace de nodos del resto de la lista
 
-        M = new_nodef(M, 0);
+        M = new_nodef(M, 1);
         matp = matprev = M;
-        for (x = 0; x < i; x++)
+        for (x = 1; x < i + 1; x++)
         {
-            for (y = 0; y < j; y++)
+            for (y = 1; y < j + 1; y++)
             {
                 if (op == 1 || op < 1 || op > 2)
                 {

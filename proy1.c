@@ -169,7 +169,7 @@ int main()
 
                 if (operacion == 1)
                 {
-                    if (f > fila - 1 || col > columna - 1)
+                    if (f > fila || col > columna)
                         printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
                     else
                     {
@@ -179,7 +179,7 @@ int main()
                 }
                 else if (operacion == 2)
                 {
-                    if (f > fila2 - 1 || col > columna2 - 1)
+                    if (f > fila2 || col > columna2)
                         printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
                     else
                     {
@@ -203,11 +203,11 @@ int main()
                 scanf("%d", &operacion);
                 if (operacion == 1)
                 {
-                    if (f > fila - 1 || col > columna - 1)
+                    if (f > fila || col > columna)
                         printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
                     else
                     {
-                        printf("\nSe asignara el elemento en la Matriz 1:\n");
+                        printf("\nSe asignara el elemento en la Matriz 1\n");
                         printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
                         scanf("%d", &v);
                         AsignarElemento(f, col, v, matriz1);
@@ -216,11 +216,11 @@ int main()
                 }
                 else if (operacion == 2)
                 {
-                    if (f > fila2 - 1 || col > columna2 - 1)
+                    if (f > fila2 || col > columna2)
                         printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
                     else
                     {
-                        printf("\nSe asignara el elemento en la Matriz 2:\n");
+                        printf("\nSe asignara el elemento en la Matriz 2\n");
                         printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
                         scanf("%d", &v);
                         AsignarElemento(f, col, v, matriz2);
