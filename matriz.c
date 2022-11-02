@@ -181,6 +181,7 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
 {
     nodef *auxfp = NULL;
     nodef *auxfp2 = NULL;
+    nodef *auxfprev = NULL;
     nodecol *auxcp = NULL;
     nodecol *auxcp2 = NULL;
     nodecol *auxcprev = NULL;
@@ -196,8 +197,11 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
         M = new_nodef(M, i);
         auxfp = M;
         auxcp = new_nodecol(auxcp, j, x);
-        auxfp->nextcol = add_endj(auxfp->nextcol, auxcp);
-        return M;
+        if (x != 0)
+        {
+            auxfp->nextcol = add_endj(auxfp->nextcol, auxcp);
+            return M;
+        }
     }
     else
     {
@@ -205,23 +209,38 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
         while (auxfp->nextf != NULL && auxfp->fila != i) // Aqui hacer lo mismo, es auxfp->next != NULL segurisimo
         {
             auxfp = auxfp->nextf;
+
+            if (auxfp->fila > i)
+            {
+                printf("\nFila no encontrada (Valor intermedio), se creara espacio para asignarla\n");
+
+                auxfprev = M;
+                while (auxfprev->nextf != auxfp)
+                {
+                    auxfprev = auxfprev->nextf;
+                }
+                auxfprev->nextf = NULL;               
+                auxfp2 = new_nodef(auxfp2, i);
+
+                auxcp2 = new_nodecol(auxcp2, j, x);
+                auxfp2->nextcol = add_endj(auxfp2->nextcol, auxcp2);
+
+                auxfprev->nextf = auxfp2;
+                auxfp2->nextf = auxfp;
+                return M; 
+            }
+
             if (auxfp->nextf == NULL && auxfp->fila < i);
             {
                 printf("\nFila no encontrada, se creara espacio para asignarla\n");
                 auxfp2 = new_nodef(auxfp2, i);
-                auxfp->nextf = auxfp2;
 
                 auxcp2 = new_nodecol(auxcp2, j, x);
                 auxfp2->nextcol = add_endj(auxfp2->nextcol, auxcp2);
+                auxfp->nextf = auxfp2;
                 return M; 
             }
         }
-        if (auxfp->fila > i)
-        {
-
-        }
-        else
-        {
 
             auxcp = auxfp->nextcol;
             while (auxcp->next != NULL && auxcp->columna != j)
@@ -250,7 +269,6 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
                 auxcprev->next = auxcp;
                 return M;  
             }
-        }
     }
 }
 
