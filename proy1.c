@@ -14,7 +14,6 @@ int main()
     int f, col, v, escalar, validacion, operacion;
     nodef *matriz_escalar = NULL;
     nodef *matriz_resultante;
-    nodef *matriz_resultante;
     nodef *matriz_suma = NULL;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
@@ -266,9 +265,12 @@ int main()
                 matriz_resultante = NULL;
                 if (fila != fila2 || columna != columna2)
                     printf("\nError: Las matrices deben tener las mismas dimensiones.\n");
-                matriz_resultante = Suma(matriz1, matriz2);
-                Imprimir(matriz_resultante);
-                printf("\n\n");
+                else
+                {
+                    matriz_resultante = Suma(matriz1, matriz2);
+                    Imprimir(matriz_resultante);
+                    printf("\n\n");
+                }
             }
             else if (operacion == 6)    // Transponer (6/7)
             {
