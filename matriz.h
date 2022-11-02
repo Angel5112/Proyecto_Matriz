@@ -55,3 +55,7 @@ void AsignarElemento(int i, int j, int x, nodef *M);
 // Funcion para determinar la matriz resultante del producto por un escalar (4/7)
 
 nodef *ProductoPorEscalar(int e, nodef *M);
+
+// Funcion para Sumar dos Matrices (5/7)
+
+nodef *Sumar(nodef *M1, nodef *M2);

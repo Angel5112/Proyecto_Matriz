@@ -13,6 +13,7 @@ int main()
 
     int f, col, v, escalar, validacion, operacion;
     nodef *matriz_escalar = NULL;
+    nodef *matriz_suma = NULL;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
     // Solicitud de las dimensiones de la matriz
@@ -30,8 +31,8 @@ int main()
     scanf("%d", &columna2);
     printf("\n");
 
-    if (fila < 0 || columna < 0 || fila2 < 0 || columna2 < 0)
-        printf("Error: Filas o columnas no pueden ser menor a 0\n");
+    if (fila <= 0 || columna <= 0 || fila2 <= 0 || columna2 <= 0)
+        printf("Error: Filas o columnas no pueden ser menor o iguales a 0\n");
     else
     {
         srand(time(NULL));
@@ -254,6 +255,48 @@ int main()
                 }
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
+            }
+            else if (operacion == 5)
+            {
+                printf("\n* Indique que matrices desea sumar\n\n");
+                printf("\n1 = Matriz1 + Matriz2\n");
+                printf("2 = Matriz1 + Matriz1\n");
+                printf("3 = Matriz2 + Matriz2\n\n");
+                scanf("%d", &operacion);
+
+                if (operacion == 1)
+                {
+                    if (fila == fila2 && columna == columna2)
+                    {
+                        printf("\nSe procedera a sumar Matriz1 + Matriz2\n\n");
+                        matriz_suma = Sumar(matriz1, matriz2);
+                        printf("\nLa matriz resultante es: \n\n");
+                        Imprimir(matriz_suma);
+                        printf("\nVolviendo al menu principa\n\n");
+                    }
+                    else
+                        printf("\nError: Suma entre Matriz1 + Matriz2 Imposible de realizar, Orden diferente\n");
+                }
+                else if (operacion == 2)
+                {
+                    printf("\nSe procedera a sumar Matriz1 + Matriz1\n\n");
+                    matriz_suma = Sumar(matriz1, matriz1);
+                    printf("\nLa matriz resultante es: \n\n");
+                    Imprimir(matriz_suma);
+                    printf("\nVolviendo al menu principa\n\n");
+                }
+                else if (operacion == 3)
+                {
+                    printf("\nSe procedera a sumar Matriz2 + Matriz2\n\n");
+                    matriz_suma = Sumar(matriz2, matriz2);
+                    printf("\nLa matriz resultante es: \n\n");
+                    Imprimir(matriz_suma);
+                    printf("\nVolviendo al menu principa\n\n");
+                }
+                else
+                {
+                    printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
+                }
             }
             else if (operacion < 1 || operacion > 7)
             {
