@@ -14,6 +14,7 @@ int main()
     int f, col, v, escalar, validacion, operacion;
     nodef *matriz_escalar = NULL;
     nodef *matriz_resultante;
+    nodef *matriz_resultante;
     nodef *matriz_suma = NULL;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
@@ -288,6 +289,10 @@ int main()
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
                 printf("\n\n");
+            }
+            else if (operacion == 7)    // Multiplicar (7/7)
+            {
+                //
             }
             else if (operacion < 1 || operacion > 7)
             {
