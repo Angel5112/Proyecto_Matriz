@@ -267,9 +267,35 @@ int main()
                     printf("\nError: Las matrices deben tener las mismas dimensiones.\n");
                 else
                 {
-                    matriz_resultante = Suma(matriz1, matriz2);
-                    Imprimir(matriz_resultante);
-                    printf("\n\n");
+                    printf("\n* Indique que matrices desea sumar: \n\n");
+                    printf("\n1 = Matriz 1 + Matriz 2\n");
+                    printf("2 = Matriz 1 + Matriz 1\n");
+                    printf("3 = Matriz 2 + Matriz 2\n");
+                    scanf("%d", &operacion);
+
+                    if (operacion == 1)
+                    {
+                        printf("\nSe sumara Matriz 1 + Matriz 2\n\n");
+                        matriz_resultante = Suma(matriz1, matriz2);
+                        Imprimir(matriz_resultante);
+                        printf("\n\n");
+                    }
+                    else if (operacion == 2)
+                    {
+                        printf("\nSe sumara Matriz 1 + Matriz 1\n\n");
+                        matriz_resultante = Suma(matriz1, matriz1);
+                        Imprimir(matriz_resultante);
+                        printf("\n\n");
+                    }
+                    else if (operacion == 3)
+                    {
+                        printf("\nSe sumara Matriz 2 + Matriz 2\n\n");
+                        matriz_resultante = Suma(matriz2, matriz2);
+                        Imprimir(matriz_resultante);
+                        printf("\n\n");
+                    }
+                    else
+                        printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
                 }
             }
             else if (operacion == 6)    // Transponer (6/7)
