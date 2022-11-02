@@ -181,6 +181,7 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
 {
     nodef *auxfp = NULL;
     nodecol *auxcp = NULL;
+    nodecol *auxcp2 = NULL;
 
     if (i <= 0 || j <= 0)
     {
@@ -195,6 +196,26 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
         auxcp = new_nodecol(auxcp, j, x);
         auxfp->nextcol = add_endj(auxfp->nextcol, auxcp);
         return M;
+    }
+    else
+    {
+        auxfp = M;
+        while (auxfp != NULL && auxfp->fila != i)
+        {
+            auxfp = auxfp->nextf;
+        }
+        auxcp = auxfp->nextcol;
+        while (auxcp->next != NULL && auxcp->columna != j)
+        {
+            auxcp = auxcp->next;
+        }
+        if (auxcp->columna < j)
+        {
+            printf("\nColumna no encontrada, se creara espacio para asignarla\n");
+            auxcp2 = new_nodecol(auxcp2, j, x);
+            auxcp->next = auxcp2;
+            return M;
+        }
     }
 }
 
