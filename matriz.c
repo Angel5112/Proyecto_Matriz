@@ -202,35 +202,54 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
     else
     {
         auxfp = M;
-        while (auxfp != NULL && auxfp->fila != i) // Aqui hacer lo mismo, es auxfp->next != NULL segurisimo
+        while (auxfp->nextf != NULL && auxfp->fila != i) // Aqui hacer lo mismo, es auxfp->next != NULL segurisimo
         {
             auxfp = auxfp->nextf;
-        }
-        auxcp = auxfp->nextcol;
-        while (auxcp->next != NULL && auxcp->columna != j)
-        {
-            auxcp = auxcp->next;
-        }
-        if (auxcp->columna < j)
-        {
-            printf("\nColumna no encontrada, se creara espacio para asignarla\n");
-            auxcp2 = new_nodecol(auxcp2, j, x);
-            auxcp->next = auxcp2;
-            return M;
-        }
-        else if (auxcp->columna > j)
-        {
-            // Se necesita un prev en el anterior para crear un nodo intermedio y enlazarlos todos
-            auxcprev = auxfp->nextcol;
-            while (auxcprev->next != auxcp)
+            if (auxfp->nextf == NULL && auxfp->fila < i);
             {
-                auxcprev = auxcprev->next;
+                printf("\nFila no encontrada, se creara espacio para asignarla\n");
+                auxfp2 = new_nodef(auxfp2, i);
+                auxfp->nextf = auxfp2;
+
+                auxcp2 = new_nodecol(auxcp2, j, x);
+                auxfp2->nextcol = add_endj(auxfp2->nextcol, auxcp2);
+                return M; 
             }
-            auxcprev->next = NULL;
-            auxcprev->next= new_nodecol(auxcprev->next, j, x);
-            auxcprev = auxcprev->next;
-            auxcprev->next = auxcp;
-            return M;  
+        }
+        if (auxfp->fila > i)
+        {
+
+        }
+        else
+        {
+
+            auxcp = auxfp->nextcol;
+            while (auxcp->next != NULL && auxcp->columna != j)
+            {
+                auxcp = auxcp->next;
+            }
+            if (auxcp->columna < j)
+            {
+                printf("\nColumna no encontrada, se creara espacio para asignarla\n");
+                auxcp2 = new_nodecol(auxcp2, j, x);
+                auxcp->next = auxcp2;
+                return M;
+            }
+            else if (auxcp->columna > j)
+            {
+                // Se necesita un prev en el anterior para crear un nodo intermedio y enlazarlos todos
+                printf("\nColumna no encontrada, se creara espacio para asignarla\n");
+                auxcprev = auxfp->nextcol;
+                while (auxcprev->next != auxcp)
+                {
+                    auxcprev = auxcprev->next;
+                }
+                auxcprev->next = NULL;
+                auxcprev->next= new_nodecol(auxcprev->next, j, x);
+                auxcprev = auxcprev->next;
+                auxcprev->next = auxcp;
+                return M;  
+            }
         }
     }
 }
