@@ -3,7 +3,7 @@
 #include <time.h>
 #include "matriz.h"
 
-int fila, columna, fila2, columna2;
+int fila, columna, fila2, columna2, operacion;
 
 // Funcion para crear los nodos de las filas
 
@@ -457,5 +457,80 @@ nodef *Sumar(nodef *M1, nodef *M2)
                 }
         }
         return Ms;
+    }
+}
+
+// Funcion para hallar la transpuesta de una Matriz (6/7)
+
+nodef *Transponer(nodef *M)
+{
+    register int x, y;
+    nodef *matriz_tps = NULL;
+    nodef *auxp = M;
+    nodecol *auxpc = NULL;
+    nodecol *auxpcMp = NULL;
+    nodef *auxpMtps = NULL;
+
+    int contmov = 0;
+    int conty = 1;
+    if (M == NULL)
+    {
+        printf("\nLa transpuesta de una matriz nula, es otra matriz nula.\n");
+        return M;
+    }
+
+    if (operacion == 1)
+    {
+        // Crear matriz Columna x Fila
+        auxpc = auxp->nextcol;
+        matriz_tps = new_nodef(matriz_tps, auxpc->columna);
+        auxpMtps = matriz_tps;
+
+        while (conty < columna + 1)
+        {   
+            do
+            {
+                for (x = 0; x < contmov; x++)
+                {
+                    if (auxpc->next != NULL)
+                    {
+                        auxpc = auxpc->next;
+                    }
+                    else
+                        break;
+                }
+                auxpcMp = new_nodecol(auxpcMp, auxp->fila, auxpc->valor);
+                auxpMtps->nextcol = add_endj(auxpMtps->nextcol, auxpcMp);
+                auxp = auxp->nextf;
+                if (auxp == NULL)
+                    break;
+                auxpc = auxp->nextcol;
+            }while (auxp->nextf != NULL);
+            auxp = M;
+            auxpc = auxp->nextcol;
+            contmov += 1;
+            for (x = 0; x < contmov; x++)
+            {
+                if (auxpc->next != NULL)
+                {
+                    auxpc = auxpc->next;
+                }
+            }
+            conty += 1;
+            if (conty < columna + 1)
+            {
+                auxpMtps->nextf = new_nodef(auxpMtps->nextf, auxpc->columna);
+                auxpMtps = auxpMtps->nextf;
+                auxp = M;
+                auxpc = auxp->nextcol;
+            }
+            else
+                break;
+        }
+        return matriz_tps;
+    }
+    else
+    {
+        // Considerar dimension de matriz 2
     }
 }

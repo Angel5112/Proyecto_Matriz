@@ -5,15 +5,16 @@
 
 // Declaracion de variables globales a utilizar (Dimensiones de las matrices)
 
-int fila, columna, fila2, columna2;
+int fila, columna, fila2, columna2, operacion;
 
 int main()
 {
     // Declaracion de variables a utilizar
 
-    int f, col, v, escalar, validacion, operacion;
+    int f, col, v, escalar, validacion;
     nodef *matriz_escalar = NULL;
     nodef *matriz_suma = NULL;
+    nodef *matriz_transpuesta = NULL;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
     // Solicitud de las dimensiones de la matriz
@@ -259,7 +260,7 @@ int main()
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
             }
-            else if (operacion == 5)
+            else if (operacion == 5)    // Suma de Matrices (5/7)
             {
                 matriz_suma = NULL;
                 printf("\n* Indique que matrices desea sumar\n\n");
@@ -296,6 +297,29 @@ int main()
                     printf("\nLa matriz resultante es: \n\n");
                     Imprimir(matriz_suma);
                     printf("\nVolviendo al menu principal\n\n");
+                }
+                else
+                {
+                    printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
+                }
+            }
+            else if (operacion == 6)    // Transpuesta (6/7)
+            {
+                printf("\n* Indique la matriz de la cual desee su transpuesta: \n\n");
+                printf("\n1 = Matriz 1\n");
+                printf("2 = Matriz 2\n\n");
+                scanf("%d", &operacion);
+
+                if (operacion == 1)
+                {
+                    printf("\nSe hallara la transpuesta de la Matriz 1\n");
+                    matriz_transpuesta = Transponer(matriz1);
+                    Imprimir(matriz_transpuesta);
+                }
+                else if (operacion == 2)
+                {
+                    printf("\nSe hallara la transpuesta de la Matriz 2\n");
+                    //matriz_transpuesta = Transponer(matriz2);
                 }
                 else
                 {
