@@ -302,22 +302,37 @@ nodef *Sumar(nodef *M1, nodef *M2)
             auxpcol = auxpf->nextcol;
             auxpcol2 = auxpf2->nextcol;
 
-            /* // Condiciones de cortafuegos para evitar violacion de segmento
+            // Condiciones de cortafuegos para evitar violacion de segmento
             if (auxpf == NULL && auxpf2 != NULL)    // auxpf ya llego al final pero auxpf2 no
             {
-                 while (auxpf2 != NULL)
-                {
-                    // Copiar el resto de M2 en Ms
-                }
+                auxpfMs->fila = auxpf->fila;
+                while (auxpcol2 != NULL)
+                    {
+                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol2->columna, auxpcol2->valor);
+                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
+                        auxpcol2 = auxpcol2->next;
+                    }
+
+                    contf += 1;   
+                    auxpfMs->nextf = new_nodef(auxpfMs, contf);
+                    auxpfMs = auxpfMs->nextf;
+                    auxpf2 = auxpf2->nextf;
             }
             else if (auxpf2 == NULL && auxpf != NULL)   // auxpf2 ya llego al final pero auxpf no
             {
-                while (auxpf != NULL)
-                {
-                    // Copiar el resto de M1 en Ms
-                }
-            }*/
-            /*else*/ if (auxpf->fila == auxpf2->fila)    // Condicion 1: Fila con elementos en M1 y M2
+                auxpfMs->fila = auxpf->fila;
+                    while (auxpcol != NULL)
+                    {
+                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol->columna, auxpcol->valor);
+                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
+                        auxpcol = auxpcol->next;
+                    }
+                    contf += 1;   
+                    auxpfMs->nextf = new_nodef(auxpfMs, contf);
+                    auxpfMs = auxpfMs->nextf;
+                    auxpf = auxpf->nextf;
+            }
+            else if (auxpf->fila == auxpf2->fila)    // Condicion 1: Fila con elementos en M1 y M2
             {
                 while (auxpcol != NULL && auxpcol2 != NULL)
                 {
@@ -336,34 +351,52 @@ nodef *Sumar(nodef *M1, nodef *M2)
                         auxpcolMs = new_nodecol(auxpcolMs, auxpcol->columna, auxpcol->valor);
                         auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
                     }
-                    auxpcol = auxpcol->next;
-                    auxpcol2 = auxpcol2->next;
+
+                    if (auxpcol == NULL && auxpcol2 != NULL)
+                        auxpcol2 = auxpcol2->next;
+                    else if (auxpcol2 == NULL && auxpcol != NULL)
+                        auxpcol = auxpcol->next;
+                    else
+                    {
+                        auxpcol = auxpcol->next;
+                        auxpcol2 = auxpcol2->next;
+                    }
                 }
                 auxpf = auxpf->nextf;
                 auxpf2 = auxpf2->nextf;
-                auxpfMs->nextf = new_nodef(auxpfMs, auxpf->fila);     // Copiando el siguiente nodo de fila en la Matriz escalar
+                auxpfMs->nextf = new_nodef(auxpfMs, auxpf->fila);
                 auxpfMs = auxpfMs->nextf;
                 contf += 1;
             }
-                /* else if (auxpf->fila > x && auxpf2->fila <= x)    // Condicion 2: Una fila de M1 no existe pero en M2 si
+                else if (auxpf->fila > auxpf2->fila)    // Condicion 2: Una fila de M1 no existe pero en M2 si
                 {
+                    auxpfMs->fila = auxpf2->fila;
                     while (auxpcol2 != NULL)
                     {
                         auxpcolMs = new_nodecol(auxpcolMs, auxpcol2->columna, auxpcol2->valor);
                         auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
                         auxpcol2 = auxpcol2->next;
                     }
+
+                    contf += 1;   
+                    auxpfMs->nextf = new_nodef(auxpfMs, contf);
+                    auxpfMs = auxpfMs->nextf;
+                    auxpf2 = auxpf2->nextf;
                 }
-                else if (auxpf2->fila > x && auxpf->fila <= x)  // Condicion 3: Una fila de M2 no existe pero en M1 si
+                else if (auxpf2->fila > auxpf->fila)  // Condicion 3: Una fila de M2 no existe pero en M1 si
                 {
+                    auxpfMs->fila = auxpf->fila;
                     while (auxpcol != NULL)
                     {
                         auxpcolMs = new_nodecol(auxpcolMs, auxpcol->columna, auxpcol->valor);
                         auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
                         auxpcol = auxpcol->next;
                     }
-                } */ 
-            // Agregar cortafuegos si da segmentation fault
+                    contf += 1;   
+                    auxpfMs->nextf = new_nodef(auxpfMs, contf);
+                    auxpfMs = auxpfMs->nextf;
+                    auxpf = auxpf->nextf;
+                }
         }
         return Ms;
     }

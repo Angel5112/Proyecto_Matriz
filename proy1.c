@@ -258,6 +258,7 @@ int main()
             }
             else if (operacion == 5)
             {
+                matriz_suma = NULL;
                 printf("\n* Indique que matrices desea sumar\n\n");
                 printf("\n1 = Matriz1 + Matriz2\n");
                 printf("2 = Matriz1 + Matriz1\n");
@@ -272,7 +273,7 @@ int main()
                         matriz_suma = Sumar(matriz1, matriz2);
                         printf("\nLa matriz resultante es: \n\n");
                         Imprimir(matriz_suma);
-                        printf("\nVolviendo al menu principa\n\n");
+                        printf("\nVolviendo al menu principal\n\n");
                     }
                     else
                         printf("\nError: Suma entre Matriz1 + Matriz2 Imposible de realizar, Orden diferente\n");
@@ -283,7 +284,7 @@ int main()
                     matriz_suma = Sumar(matriz1, matriz1);
                     printf("\nLa matriz resultante es: \n\n");
                     Imprimir(matriz_suma);
-                    printf("\nVolviendo al menu principa\n\n");
+                    printf("\nVolviendo al menu principal\n\n");
                 }
                 else if (operacion == 3)
                 {
@@ -291,7 +292,7 @@ int main()
                     matriz_suma = Sumar(matriz2, matriz2);
                     printf("\nLa matriz resultante es: \n\n");
                     Imprimir(matriz_suma);
-                    printf("\nVolviendo al menu principa\n\n");
+                    printf("\nVolviendo al menu principal\n\n");
                 }
                 else
                 {
