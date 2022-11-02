@@ -144,7 +144,6 @@ int ObtenerElemento(int i, int j, nodef *M)
     }
     else
     {
-        printf("\nObtenerElemento: inside\n");
         nodef *auxp = M;
         nodecol *tempj = NULL;
         while (auxp->fila != i)
@@ -239,7 +238,7 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
                 return M; 
             }
 
-            if (auxfp->nextf == NULL && auxfp->fila < i);
+            if (auxfp->nextf == NULL && auxfp->fila < i)
             {
                 printf("\nFila no encontrada, se creara espacio para asignarla\n");
                 auxfp2 = new_nodef(auxfp2, i);
@@ -279,6 +278,7 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
                 return M;  
             }
     }
+    return NULL;
 }
 
 // Funcion para determinar la matriz resultante del producto por un escalar (4/7)

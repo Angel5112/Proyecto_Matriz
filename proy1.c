@@ -21,19 +21,15 @@ int main()
 
     printf("****** Ingrese la cantidad de filas de la 1era matriz ******\n");
     scanf("%d", &fila);
-    // fila = 2;
     printf("\n");
     printf("****** Ingrese la cantidad de columnas de la 1era matriz ******\n");
     scanf("%d", &columna);
-    // columna = 2;
     printf("\n");
     printf("****** Ingrese la cantidad de filas de la 2nda matriz ******\n");
     scanf("%d", &fila2);
-    // fila2 = 2;
     printf("\n");
     printf("****** Ingrese la cantidad de columnas de la 2nda matriz ******\n");
     scanf("%d", &columna2);
-    // columna2 = 2;
     printf("\n");
 
     if (fila <= 0 || columna <= 0 || fila2 <= 0 || columna2 <= 0)
