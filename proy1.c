@@ -319,7 +319,8 @@ int main()
                 else if (operacion == 2)
                 {
                     printf("\nSe hallara la transpuesta de la Matriz 2\n");
-                    //matriz_transpuesta = Transponer(matriz2);
+                    matriz_transpuesta = Transponer(matriz2);
+                    Imprimir(matriz_transpuesta);
                 }
                 else
                 {

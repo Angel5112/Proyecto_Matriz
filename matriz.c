@@ -531,6 +531,52 @@ nodef *Transponer(nodef *M)
     }
     else
     {
-        // Considerar dimension de matriz 2
+        // Crear matriz Columna x Fila
+        auxpc = auxp->nextcol;
+        matriz_tps = new_nodef(matriz_tps, auxpc->columna);
+        auxpMtps = matriz_tps;
+
+        while (conty < columna2 + 1)
+        {   
+            do
+            {
+                for (x = 0; x < contmov; x++)
+                {
+                    if (auxpc->next != NULL)
+                    {
+                        auxpc = auxpc->next;
+                    }
+                    else
+                        break;
+                }
+                auxpcMp = new_nodecol(auxpcMp, auxp->fila, auxpc->valor);
+                auxpMtps->nextcol = add_endj(auxpMtps->nextcol, auxpcMp);
+                auxp = auxp->nextf;
+                if (auxp == NULL)
+                    break;
+                auxpc = auxp->nextcol;
+            }while (auxp->nextf != NULL);
+            auxp = M;
+            auxpc = auxp->nextcol;
+            contmov += 1;
+            for (x = 0; x < contmov; x++)
+            {
+                if (auxpc->next != NULL)
+                {
+                    auxpc = auxpc->next;
+                }
+            }
+            conty += 1;
+            if (conty < columna2 + 1)
+            {
+                auxpMtps->nextf = new_nodef(auxpMtps->nextf, auxpc->columna);
+                auxpMtps = auxpMtps->nextf;
+                auxp = M;
+                auxpc = auxp->nextcol;
+            }
+            else
+                break;
+        }
+        return matriz_tps;
     }
 }
