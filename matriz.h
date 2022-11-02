@@ -56,10 +56,10 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M);
 
 nodef *ProductoPorEscalar(int e, nodef *M);
 
-// Funcion para Sumar dos Matrices (5/7)
+// Funcion para determinar la matriz resultante de la suma de dos matrices dadas (5/7)
 
-nodef *Sumar(nodef *M1, nodef *M2);
+nodef *Suma(nodef *M1, nodef *M2);
 
-// Funcion para hallar la transpuesta de una Matriz (6/7)
+// Funcion para determinar la matriz transpuesta (6/7)
 
 nodef *Transponer(nodef *M);

@@ -3,7 +3,7 @@
 #include <time.h>
 #include "matriz.h"
 
-int fila, columna, fila2, columna2, operacion;
+int fila, columna, fila2, columna2;
 
 // Funcion para crear los nodos de las filas
 
@@ -155,6 +155,8 @@ int ObtenerElemento(int i, int j, nodef *M)
             }
             auxp = auxp->nextf;
         }
+        if (auxp->nextcol == NULL)
+            return 0;
         tempj = auxp->nextcol;
         while (tempj->columna != j)
         {
@@ -236,7 +238,7 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
                 return M; 
             }
 
-            if (auxfp->nextf == NULL && auxfp->fila < i);
+            if (auxfp->nextf == NULL && auxfp->fila < i)
             {
                 printf("\nFila no encontrada, se creara espacio para asignarla\n");
                 auxfp2 = new_nodef(auxfp2, i);
@@ -276,6 +278,7 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
                 return M;  
             }
     }
+    return NULL;
 }
 
 // Funcion para determinar la matriz resultante del producto por un escalar (4/7)
@@ -316,267 +319,81 @@ nodef *ProductoPorEscalar(int e, nodef *M)
     }
 }
 
-// Funcion para Sumar dos Matrices (5/7)
+// Funcion para determinar la matriz resultante de la suma de dos matrices dadas (5/7)
 
-nodef *Sumar(nodef *M1, nodef *M2)
-{
-    int contf, contcol;
-    contf = contcol = 1;
-    nodef *Ms = NULL;
-    nodef *auxpf, *auxpf2, *auxpfMs;
-    nodecol *auxpcol, *auxpcol2, *auxpcolMs;
-    if (M1 == NULL)
-    {
-        printf("\nLa matriz 1 es nula, por lo tanto la suma sera igual a la matriz 2\n\n");
-        return M2;
-    }
-    else if (M2 == NULL)
-    {
-        printf("\nLa matriz 2 es nula, por lo tanto la suma sera igual a la matriz 1\n\n");
-        return M1;
-    }
-    else if (M1 == NULL && M2 == NULL)
-    {
-        printf("\nAmbas matrices son nulas, por lo tanto, la suma sera una matriz nula\n\n");
-        return Ms;
-    }
-    else
-    {
-        // Asignar los apuntadores auxiliares y crear espacio para Ms y su primer nodo
-        auxpf = M1;
-        auxpf2 = M2;
-        auxpcol = auxpcol2 = auxpcolMs = NULL;
+nodef *Suma(nodef *M1, nodef *M2) {
+    nodef *M3; // Matriz resultante
+    nodef *auxpM1, *auxpM2, *auxpM3, *auxpPrevM3; // Punteros Aux.
+    nodecol *newCol = NULL;
 
-        if (M1->fila < M2->fila)
-            Ms = new_nodef(Ms, M1->fila);
-        else if (M2->fila < M1->fila)
-            Ms = new_nodef(Ms, M2->fila);
-        else
-            Ms = new_nodef(Ms, M1->fila);
-        auxpfMs = Ms;
+    auxpM1 = M1;
+    auxpM2 = M2;
+    int m = 0, n = 0, res = 0;  // Valores a sumar
 
-        while (contf < fila + 1)      // NOTA: Como M1 y M2 tienen la misma dimension, se puede tomar el valor de dichas dimensiones sin temor a afectar la estructura
-        {
-            auxpcol = auxpf->nextcol;
-            auxpcol2 = auxpf2->nextcol;
+    M3 = new_nodef(M3, 1); // Agregar Nodo Fila inicial a Matriz resultante
+    auxpM3 = auxpPrevM3 = M3;
 
-            // Condiciones de cortafuegos para evitar violacion de segmento
-            if (auxpf == NULL && auxpf2 != NULL)    // auxpf ya llego al final pero auxpf2 no
-            {
-                auxpfMs->fila = auxpf->fila;
-                while (auxpcol2 != NULL)
-                    {
-                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol2->columna, auxpcol2->valor);
-                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
-                        auxpcol2 = auxpcol2->next;
-                    }
+    for (int i=1; i<=fila; i++) {
 
-                    contf += 1;   
-                    auxpfMs->nextf = new_nodef(auxpfMs, contf);
-                    auxpfMs = auxpfMs->nextf;
-                    auxpf2 = auxpf2->nextf;
+        for (int j=1; j<=columna; j++) {
+
+            m = ObtenerElemento(i, j, auxpM1);
+            n = ObtenerElemento(i, j, auxpM2);
+
+            res = m + n;
+
+            if (res != 0) {
+                newCol = new_nodecol(newCol, j, res);
+                auxpM3->nextcol = add_endj(auxpM3->nextcol, newCol);
             }
-            else if (auxpf2 == NULL && auxpf != NULL)   // auxpf2 ya llego al final pero auxpf no
-            {
-                auxpfMs->fila = auxpf->fila;
-                    while (auxpcol != NULL)
-                    {
-                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol->columna, auxpcol->valor);
-                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
-                        auxpcol = auxpcol->next;
-                    }
-                    contf += 1;   
-                    auxpfMs->nextf = new_nodef(auxpfMs, contf);
-                    auxpfMs = auxpfMs->nextf;
-                    auxpf = auxpf->nextf;
-            }
-            else if (auxpf->fila == auxpf2->fila)    // Condicion 1: Fila con elementos en M1 y M2
-            {
-                while (auxpcol != NULL && auxpcol2 != NULL)
-                {
-                    if (auxpcol->columna == auxpcol2->columna)
-                    {
-                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol->columna, auxpcol->valor + auxpcol2->valor);
-                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
-                    }
-                    else if (auxpcol->columna > auxpcol2->columna)
-                    {
-                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol2->columna, auxpcol2->valor);
-                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
-                    }
-                    else if (auxpcol2->columna > auxpcol->columna)
-                    {
-                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol->columna, auxpcol->valor);
-                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
-                    }
-
-                    if (auxpcol == NULL && auxpcol2 != NULL)
-                        auxpcol2 = auxpcol2->next;
-                    else if (auxpcol2 == NULL && auxpcol != NULL)
-                        auxpcol = auxpcol->next;
-                    else
-                    {
-                        auxpcol = auxpcol->next;
-                        auxpcol2 = auxpcol2->next;
-                    }
-                }
-                auxpf = auxpf->nextf;
-                auxpf2 = auxpf2->nextf;
-                auxpfMs->nextf = new_nodef(auxpfMs, auxpf->fila);
-                auxpfMs = auxpfMs->nextf;
-                contf += 1;
-            }
-                else if (auxpf->fila > auxpf2->fila)    // Condicion 2: Una fila de M1 no existe pero en M2 si
-                {
-                    auxpfMs->fila = auxpf2->fila;
-                    while (auxpcol2 != NULL)
-                    {
-                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol2->columna, auxpcol2->valor);
-                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
-                        auxpcol2 = auxpcol2->next;
-                    }
-
-                    contf += 1;   
-                    auxpfMs->nextf = new_nodef(auxpfMs, contf);
-                    auxpfMs = auxpfMs->nextf;
-                    auxpf2 = auxpf2->nextf;
-                }
-                else if (auxpf2->fila > auxpf->fila)  // Condicion 3: Una fila de M2 no existe pero en M1 si
-                {
-                    auxpfMs->fila = auxpf->fila;
-                    while (auxpcol != NULL)
-                    {
-                        auxpcolMs = new_nodecol(auxpcolMs, auxpcol->columna, auxpcol->valor);
-                        auxpfMs->nextcol = add_endj(auxpfMs->nextcol, auxpcolMs);
-                        auxpcol = auxpcol->next;
-                    }
-                    contf += 1;   
-                    auxpfMs->nextf = new_nodef(auxpfMs, contf);
-                    auxpfMs = auxpfMs->nextf;
-                    auxpf = auxpf->nextf;
-                }
         }
-        return Ms;
+
+        if (auxpM3->nextcol == NULL) { // Liberar espacio de fila de solo 0 ceros
+            free(auxpM3);
+            auxpM3 = auxpPrevM3;
+        }
+        auxpM3->nextf = new_nodef(auxpM3, i + 1); // Agregar Siguiente fila a Matriz resultante
+        auxpPrevM3 = auxpM3;
+        auxpM3 = auxpM3->nextf;
     }
+
+    return M3;
 }
 
-// Funcion para hallar la transpuesta de una Matriz (6/7)
+// Funcion para determinar la matriz transpuesta (6/7)
 
-nodef *Transponer(nodef *M)
-{
-    register int x, y;
-    nodef *matriz_tps = NULL;
-    nodef *auxp = M;
-    nodecol *auxpc = NULL;
-    nodecol *auxpcMp = NULL;
-    nodef *auxpMtps = NULL;
+nodef *Transponer(nodef *M) {
 
-    int contmov = 0;
-    int conty = 1;
-    if (M == NULL)
-    {
-        printf("\nLa transpuesta de una matriz nula, es otra matriz nula.\n");
-        return M;
-    }
+    int value;
+    nodef *MR;  // Matriz resultante
+    nodef *auxpM, *auxpMR, *auxpPrevMR; // Punteros Aux.
+    nodecol *newCol = NULL;
 
-    if (operacion == 1)
-    {
-        // Crear matriz Columna x Fila
-        auxpc = auxp->nextcol;
-        matriz_tps = new_nodef(matriz_tps, auxpc->columna);
-        auxpMtps = matriz_tps;
+    auxpM = M;
 
-        while (conty < columna + 1)
-        {   
-            do
-            {
-                for (x = 0; x < contmov; x++)
-                {
-                    if (auxpc->next != NULL)
-                    {
-                        auxpc = auxpc->next;
-                    }
-                    else
-                        break;
-                }
-                auxpcMp = new_nodecol(auxpcMp, auxp->fila, auxpc->valor);
-                auxpMtps->nextcol = add_endj(auxpMtps->nextcol, auxpcMp);
-                auxp = auxp->nextf;
-                if (auxp == NULL)
-                    break;
-                auxpc = auxp->nextcol;
-            }while (auxp->nextf != NULL);
-            auxp = M;
-            auxpc = auxp->nextcol;
-            contmov += 1;
-            for (x = 0; x < contmov; x++)
-            {
-                if (auxpc->next != NULL)
-                {
-                    auxpc = auxpc->next;
-                }
+    MR = new_nodef(MR, 1); // Agregar Nodo Fila inicial a Matriz resultante
+    auxpMR = auxpPrevMR = MR;
+
+    for (int i=1; i<=fila; i++) {
+
+        for (int j=1; j<=columna; j++) {
+
+            value = ObtenerElemento(j, i, auxpM);
+
+            if (value != 0) {
+                newCol = new_nodecol(newCol, j, value);
+                auxpMR->nextcol = add_endj(auxpMR->nextcol, newCol);
             }
-            conty += 1;
-            if (conty < columna + 1)
-            {
-                auxpMtps->nextf = new_nodef(auxpMtps->nextf, auxpc->columna);
-                auxpMtps = auxpMtps->nextf;
-                auxp = M;
-                auxpc = auxp->nextcol;
-            }
-            else
-                break;
         }
-        return matriz_tps;
-    }
-    else
-    {
-        // Crear matriz Columna x Fila
-        auxpc = auxp->nextcol;
-        matriz_tps = new_nodef(matriz_tps, auxpc->columna);
-        auxpMtps = matriz_tps;
 
-        while (conty < columna2 + 1)
-        {   
-            do
-            {
-                for (x = 0; x < contmov; x++)
-                {
-                    if (auxpc->next != NULL)
-                    {
-                        auxpc = auxpc->next;
-                    }
-                    else
-                        break;
-                }
-                auxpcMp = new_nodecol(auxpcMp, auxp->fila, auxpc->valor);
-                auxpMtps->nextcol = add_endj(auxpMtps->nextcol, auxpcMp);
-                auxp = auxp->nextf;
-                if (auxp == NULL)
-                    break;
-                auxpc = auxp->nextcol;
-            }while (auxp->nextf != NULL);
-            auxp = M;
-            auxpc = auxp->nextcol;
-            contmov += 1;
-            for (x = 0; x < contmov; x++)
-            {
-                if (auxpc->next != NULL)
-                {
-                    auxpc = auxpc->next;
-                }
-            }
-            conty += 1;
-            if (conty < columna2 + 1)
-            {
-                auxpMtps->nextf = new_nodef(auxpMtps->nextf, auxpc->columna);
-                auxpMtps = auxpMtps->nextf;
-                auxp = M;
-                auxpc = auxp->nextcol;
-            }
-            else
-                break;
+        if (auxpMR->nextcol == NULL) { // Liberar espacio de fila de solo 0 ceros
+            free(auxpMR);
+            auxpMR = auxpPrevMR;
         }
-        return matriz_tps;
+        auxpMR->nextf = new_nodef(auxpMR, i + 1); // Agregar Siguiente fila a Matriz resultante
+        auxpPrevMR = auxpMR;
+        auxpMR = auxpMR->nextf;
     }
+
+    return MR;
 }

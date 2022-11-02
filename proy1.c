@@ -5,16 +5,16 @@
 
 // Declaracion de variables globales a utilizar (Dimensiones de las matrices)
 
-int fila, columna, fila2, columna2, operacion;
+int fila, columna, fila2, columna2;
 
 int main()
 {
     // Declaracion de variables a utilizar
 
-    int f, col, v, escalar, validacion;
+    int f, col, v, escalar, validacion, operacion;
     nodef *matriz_escalar = NULL;
+    nodef *matriz_resultante;
     nodef *matriz_suma = NULL;
-    nodef *matriz_transpuesta = NULL;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
     // Solicitud de las dimensiones de la matriz
@@ -158,7 +158,7 @@ int main()
             }
             else if (operacion == 2) // Busqueda de elemento (2/7)
             {
-                operacion == 0;
+                operacion = 0;
                 printf("\nIngrese la fila del elemento a buscar: ");
                 scanf("%d", &f);
                 printf("Ingrese la columna del elemento a buscar: ");
@@ -260,78 +260,41 @@ int main()
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
             }
-            else if (operacion == 5)    // Suma de Matrices (5/7)
+            else if (operacion == 5)    // Sumar (5/7)
             {
-                matriz_suma = NULL;
-                printf("\n* Indique que matrices desea sumar\n\n");
-                printf("\n1 = Matriz1 + Matriz2\n");
-                printf("2 = Matriz1 + Matriz1\n");
-                printf("3 = Matriz2 + Matriz2\n\n");
-                scanf("%d", &operacion);
-
-                if (operacion == 1)
-                {
-                    if (fila == fila2 && columna == columna2)
-                    {
-                        printf("\nSe procedera a sumar Matriz1 + Matriz2\n\n");
-                        matriz_suma = Sumar(matriz1, matriz2);
-                        printf("\nLa matriz resultante es: \n\n");
-                        Imprimir(matriz_suma);
-                        printf("\nVolviendo al menu principal\n\n");
-                    }
-                    else
-                        printf("\nError: Suma entre Matriz1 + Matriz2 Imposible de realizar, Orden diferente\n");
-                }
-                else if (operacion == 2)
-                {
-                    printf("\nSe procedera a sumar Matriz1 + Matriz1\n\n");
-                    matriz_suma = Sumar(matriz1, matriz1);
-                    printf("\nLa matriz resultante es: \n\n");
-                    Imprimir(matriz_suma);
-                    printf("\nVolviendo al menu principal\n\n");
-                }
-                else if (operacion == 3)
-                {
-                    printf("\nSe procedera a sumar Matriz2 + Matriz2\n\n");
-                    matriz_suma = Sumar(matriz2, matriz2);
-                    printf("\nLa matriz resultante es: \n\n");
-                    Imprimir(matriz_suma);
-                    printf("\nVolviendo al menu principal\n\n");
-                }
-                else
-                {
-                    printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
-                }
+                matriz_resultante = NULL;
+                if (fila != fila2 || columna != columna2)
+                    printf("\nError: Las matrices deben tener las mismas dimensiones.\n");
+                matriz_resultante = Suma(matriz1, matriz2);
+                Imprimir(matriz_resultante);
+                printf("\n\n");
             }
-            else if (operacion == 6)    // Transpuesta (6/7)
+            else if (operacion == 6)    // Transponer (6/7)
             {
-                printf("\n* Indique la matriz de la cual desee su transpuesta: \n\n");
-                printf("\n1 = Matriz 1\n");
-                printf("2 = Matriz 2\n\n");
+                matriz_resultante = NULL;
+                operacion = 0;
+                printf("\n¿Que matriz desea transponer la 1 o 2?.\n");
                 scanf("%d", &operacion);
-
                 if (operacion == 1)
                 {
-                    printf("\nSe hallara la transpuesta de la Matriz 1\n");
-                    matriz_transpuesta = Transponer(matriz1);
-                    Imprimir(matriz_transpuesta);
+                    matriz_resultante = Transponer(matriz1);
+                    Imprimir(matriz_resultante);
                 }
                 else if (operacion == 2)
                 {
-                    printf("\nSe hallara la transpuesta de la Matriz 2\n");
-                    matriz_transpuesta = Transponer(matriz2);
-                    Imprimir(matriz_transpuesta);
+                    matriz_resultante = Transponer(matriz2);
+                    Imprimir(matriz_resultante);
                 }
                 else
-                {
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
-                }
+                printf("\n\n");
             }
             else if (operacion < 1 || operacion > 7)
             {
                 printf("\nHa decidido salir del programa.\n");
                 validacion = 1;
             }
+
         }
     }
 }
