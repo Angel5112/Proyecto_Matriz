@@ -282,7 +282,6 @@ int main()
                 if (operacion == 1)
                 {
                     matriz_resultante = Transponer(matriz1);
-                    printf("\nVAMOS CONTIGO fila: %d\n", matriz_resultante->fila);
                     Imprimir(matriz_resultante);
                 }
                 else if (operacion == 2)
