@@ -150,7 +150,6 @@ int ObtenerElemento(int i, int j, nodef *M)
         {
             if (auxp->fila > i)
             {
-                printf("\nAdvertencia: Se esta buscando un elemento en una fila no existente (Valor 0). Elemento imposible de encontrar\n\n");
                 return 0;
             }
             auxp = auxp->nextf;
@@ -162,14 +161,12 @@ int ObtenerElemento(int i, int j, nodef *M)
         {
             if (tempj->next == NULL && tempj->columna < j)
             {
-                printf("\nError: se esta tratando de acceder una posicion no existente (Al crear la matriz se le asigno de valor numerico un 0)\n");
                 return 0;
             }
             if (tempj->columna < j)
                 tempj = tempj->next;
             else if (tempj->columna > j)
             {
-                printf("\nError: se esta tratando de acceder una posicion no existente (Al crear la matriz se le asigno de valor numerico un 0)\n");
                 return 0;
             }
         }
