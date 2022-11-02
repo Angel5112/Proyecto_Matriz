@@ -289,6 +289,10 @@ int main()
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
                 printf("\n\n");
             }
+            else if (operacion == 7)    // Multiplicar (7/7)
+            {
+                //
+            }
             else if (operacion < 1 || operacion > 7)
             {
                 printf("\nHa decidido salir del programa.\n");

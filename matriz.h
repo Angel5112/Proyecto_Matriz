@@ -63,3 +63,7 @@ nodef *Suma(nodef *M1, nodef *M2);
 // Funcion para determinar la matriz transpuesta (6/7)
 
 nodef *Transponer(nodef *M);
+
+// Funcion para determinar el producto de dos matrices (7/7)
+
+nodef *Producto(nodef *M1, nodef *M2);

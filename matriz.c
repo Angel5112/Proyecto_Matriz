@@ -364,7 +364,7 @@ nodef *Suma(nodef *M1, nodef *M2) {
 
 nodef *Transponer(nodef *M) {
 
-    int value;
+    int value, auxFila, auxColumna;
     nodef *MR;  // Matriz resultante
     nodef *auxpM, *auxpMR, *auxpPrevMR; // Punteros Aux.
     nodecol *newCol = NULL;
@@ -374,11 +374,23 @@ nodef *Transponer(nodef *M) {
     MR = new_nodef(MR, 1); // Agregar Nodo Fila inicial a Matriz resultante
     auxpMR = auxpPrevMR = MR;
 
-    for (int i=1; i<=fila; i++) {
+    auxFila = fila;
+    auxColumna = columna;
+    if (fila != columna) {
+        value = auxColumna;
+        auxColumna = auxFila;
+        auxFila = value;
+        value = 0;
+    }
 
-        for (int j=1; j<=columna; j++) {
+    for (int i=1; i<=auxFila; i++) {
 
-            value = ObtenerElemento(j, i, auxpM);
+        for (int j=1; j<=auxColumna; j++) {
+
+            if (fila > columna && i > columna)
+                value = ObtenerElemento(i, j, auxpM);
+            else
+                value = ObtenerElemento(j, i, auxpM);
 
             if (value != 0) {
                 newCol = new_nodecol(newCol, j, value);
@@ -396,4 +408,10 @@ nodef *Transponer(nodef *M) {
     }
 
     return MR;
+}
+
+// Funcion para determinar el producto de dos matrices (7/7)
+
+nodef *Producto(nodef *M1, nodef *M2) {
+    //
 }
