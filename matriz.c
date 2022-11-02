@@ -92,6 +92,12 @@ nodef *new_matrix(nodef *M, nodecol *tj, int i, int j, int op)
         matprev = matp;
         matp = matp->nextf;
     }
+    matp = M;
+    if (matp->nextcol == NULL)
+        {
+            M = NULL;
+            free(matp);
+        }
     printf("\n");
     return M;
 
@@ -171,52 +177,24 @@ int ObtenerElemento(int i, int j, nodef *M)
 
 // Funcion para Asignar un elemento de una matriz en determinada posicion (3/7)
 
-void AsignarElemento(int i, int j, int x, nodef *M)
+nodef *AsignarElemento(int i, int j, int x, nodef *M)
 {
-    if (i < 0 || j < 0)
+    nodef *auxfp = NULL;
+    nodecol *auxcp = NULL;
+
+    if (i <= 0 || j <= 0)
     {
-        printf("\nError: fila o columna introducida es menor a 0. Elemento imposible de asignar.\n");
-        return;
+        printf("\nError: Dimensiones no pueden ser menores o iguales a 0");
+        return M;
     }
     else if (M == NULL)
     {
-        printf("\nAdvertencia: Matriz es nula, por lo atento el elemento es imposible de asignar.\n");
-        return;
-    }
-    else
-    {
-        nodef *auxfp = M;
-        nodecol *auxcp = NULL;
-        while (auxfp->fila != i)
-        {
-            if (auxfp->fila > i)
-            {
-                printf("\nAdvertencia: Se esta buscando un elemento en una fila no existente (Valor 0). Elemento imposible de encontrar\n");
-                return;
-            }
-            auxfp = auxfp->nextf;
-        }
-
-        auxcp = auxfp->nextcol;
-
-        while (auxcp->columna != j)
-        {
-            if (auxcp->next == NULL && auxcp->columna < j)
-            {        
-                printf("\nError: se esta tratando de acceder una posicion no registrada (Al crear la matriz se le asigno de valor numerico un 0)\n");
-                return;
-            }
-            if (auxcp->columna < j)
-                auxcp = auxcp->next;
-            else if (auxcp->columna > j)
-            {
-                printf("\nError: se esta tratando de acceder una posicion no registrada (Al crear la matriz se le asigno de valor numerico un 0)\n");
-                return;
-            }
-        }
-        auxcp->valor = x; // Asignar condicion cuando x = 0 (Usar free y linkear el siguiente valido)
-        printf("\nEl valor %d ha sido asignado en la fila %d columna %d\n", x, i, j);
-        return;
+        printf("\nAdvertencia: La matriz es nula, creando espacio para asignar el elemento\n\n");
+        M = new_nodef(M, i);
+        auxfp = M;
+        auxcp = new_nodecol(auxcp, j, x);
+        auxfp->nextcol = add_endj(auxfp->nextcol, auxcp);
+        return M;
     }
 }
 

@@ -193,11 +193,6 @@ int main()
             }
             else if (operacion == 3) // Asignar Elemento (3/7)
             {
-                printf("\nIngrese la fila del elemento a cambiar: ");
-                scanf("%d", &f);
-                printf("Ingrese la columna del elemento a cambiar: ");
-                scanf("%d", &col);
-
                 printf("\n* Indique en que matriz desea asignar el elemento: \n");
                 printf("\n1 = Matriz 1\n");
                 printf("2 = Matriz 2\n\n");
@@ -209,9 +204,13 @@ int main()
                     else
                     {
                         printf("\nSe asignara el elemento en la Matriz 1\n");
+                        printf("\nIngrese la fila del elemento a cambiar: ");
+                        scanf("%d", &f);
+                        printf("Ingrese la columna del elemento a cambiar: ");
+                        scanf("%d", &col);
                         printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
                         scanf("%d", &v);
-                        AsignarElemento(f, col, v, matriz1);
+                        matriz1 = AsignarElemento(f, col, v, matriz1);
                         printf("\nVolviendo al menu principal\n\n");
                     }
                 }
@@ -222,9 +221,13 @@ int main()
                     else
                     {
                         printf("\nSe asignara el elemento en la Matriz 2\n");
+                        printf("\nIngrese la fila del elemento a cambiar: ");
+                        scanf("%d", &f);
+                        printf("Ingrese la columna del elemento a cambiar: ");
+                        scanf("%d", &col);
                         printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
                         scanf("%d", &v);
-                        AsignarElemento(f, col, v, matriz2);
+                        matriz2 = AsignarElemento(f, col, v, matriz2);
                         printf("\nVolviendo al menu principal\n\n");
                     }
                 }
