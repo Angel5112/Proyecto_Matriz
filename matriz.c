@@ -300,7 +300,7 @@ nodef *ProductoPorEscalar(int e, nodef *M)
             while (auxpcolM != NULL)    // Recorriendo las columnas de la matriz original
             {
                 auxpcolMe = new_nodecol(auxpcolMe, auxpcolM->columna, (auxpcolM->valor * e)); // Asigna los mismos valores de la matriz original en la matriz nueva, pero ya con el producto por escalar aplicado
-                auxpMe->nextcol = add_endj(auxpMe->nextcol, auxpcolMe); // PROBLEMA ENCONTRADO, NUNCA SALE DE ESTA ITERACION!
+                auxpMe->nextcol = add_endj(auxpMe->nextcol, auxpcolMe);
                 auxpcolM = auxpcolM->next;
             }
             auxpM = auxpM->nextf;           // Cambiando a la siguiente fila de la matriz original
