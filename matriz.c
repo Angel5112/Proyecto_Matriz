@@ -202,6 +202,12 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
             auxfp->nextcol = add_endj(auxfp->nextcol, auxcp);
             return M;
         }
+        else
+        {
+            free(auxcp);
+            M = NULL;
+            return M;
+        }
     }
     else
     {
