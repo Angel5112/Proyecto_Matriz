@@ -180,8 +180,10 @@ int ObtenerElemento(int i, int j, nodef *M)
 nodef *AsignarElemento(int i, int j, int x, nodef *M)
 {
     nodef *auxfp = NULL;
+    nodef *auxfp2 = NULL;
     nodecol *auxcp = NULL;
     nodecol *auxcp2 = NULL;
+    nodecol *auxcprev = NULL;
 
     if (i <= 0 || j <= 0)
     {
@@ -200,7 +202,7 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
     else
     {
         auxfp = M;
-        while (auxfp != NULL && auxfp->fila != i)
+        while (auxfp != NULL && auxfp->fila != i) // Aqui hacer lo mismo, es auxfp->next != NULL segurisimo
         {
             auxfp = auxfp->nextf;
         }
@@ -215,6 +217,20 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
             auxcp2 = new_nodecol(auxcp2, j, x);
             auxcp->next = auxcp2;
             return M;
+        }
+        else if (auxcp->columna > j)
+        {
+            // Se necesita un prev en el anterior para crear un nodo intermedio y enlazarlos todos
+            auxcprev = auxfp->nextcol;
+            while (auxcprev->next != auxcp)
+            {
+                auxcprev = auxcprev->next;
+            }
+            auxcprev->next = NULL;
+            auxcprev->next= new_nodecol(auxcprev->next, j, x);
+            auxcprev = auxcprev->next;
+            auxcprev->next = auxcp;
+            return M;  
         }
     }
 }
