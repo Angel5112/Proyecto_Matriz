@@ -50,12 +50,15 @@ int ObtenerElemento(int i, int j, nodef *M);
 
 // Funcion para Asignar un elemento de una matriz en determinada posicion (3/7)
 
-void AsignarElemento(int i, int j, int x, nodef *M);
+nodef *AsignarElemento(int i, int j, int x, nodef *M);
 
 // Funcion para determinar la matriz resultante del producto por un escalar (4/7)
 
 nodef *ProductoPorEscalar(int e, nodef *M);
 
+// Funcion para Sumar dos Matrices (5/7)
+
+nodef *Sumar(nodef *M1, nodef *M2);
 // Funcion para determinar la matriz resultante de la suma de dos matrices dadas (5/7)
 
 nodef *Suma(nodef *M1, nodef *M2);

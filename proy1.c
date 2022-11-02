@@ -14,6 +14,7 @@ int main()
     int f, col, v, escalar, validacion, operacion;
     nodef *matriz_escalar = NULL;
     nodef *matriz_resultante;
+    nodef *matriz_suma = NULL;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
     // Solicitud de las dimensiones de la matriz
@@ -35,8 +36,8 @@ int main()
     // columna2 = 2;
     printf("\n");
 
-    if (fila < 0 || columna < 0 || fila2 < 0 || columna2 < 0)
-        printf("Error: Filas o columnas no pueden ser menor a 0\n");
+    if (fila <= 0 || columna <= 0 || fila2 <= 0 || columna2 <= 0)
+        printf("Error: Filas o columnas no pueden ser menor o iguales a 0\n");
     else
     {
         srand(time(NULL));
@@ -197,11 +198,6 @@ int main()
             }
             else if (operacion == 3) // Asignar Elemento (3/7)
             {
-                printf("\nIngrese la fila del elemento a cambiar: ");
-                scanf("%d", &f);
-                printf("Ingrese la columna del elemento a cambiar: ");
-                scanf("%d", &col);
-
                 printf("\n* Indique en que matriz desea asignar el elemento: \n");
                 printf("\n1 = Matriz 1\n");
                 printf("2 = Matriz 2\n\n");
@@ -213,9 +209,13 @@ int main()
                     else
                     {
                         printf("\nSe asignara el elemento en la Matriz 1\n");
+                        printf("\nIngrese la fila del elemento a cambiar: ");
+                        scanf("%d", &f);
+                        printf("Ingrese la columna del elemento a cambiar: ");
+                        scanf("%d", &col);
                         printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
                         scanf("%d", &v);
-                        AsignarElemento(f, col, v, matriz1);
+                        matriz1 = AsignarElemento(f, col, v, matriz1);
                         printf("\nVolviendo al menu principal\n\n");
                     }
                 }
@@ -226,9 +226,13 @@ int main()
                     else
                     {
                         printf("\nSe asignara el elemento en la Matriz 2\n");
+                        printf("\nIngrese la fila del elemento a cambiar: ");
+                        scanf("%d", &f);
+                        printf("Ingrese la columna del elemento a cambiar: ");
+                        scanf("%d", &col);
                         printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
                         scanf("%d", &v);
-                        AsignarElemento(f, col, v, matriz2);
+                        matriz2 = AsignarElemento(f, col, v, matriz2);
                         printf("\nVolviendo al menu principal\n\n");
                     }
                 }
