@@ -145,6 +145,7 @@ int ObtenerElemento(int i, int j, nodef *M)
     }
     else
     {
+        printf("\nObtenerElemento: inside\n");
         nodef *auxp = M;
         nodecol *tempj = NULL;
         while (auxp->fila != i)
@@ -156,6 +157,8 @@ int ObtenerElemento(int i, int j, nodef *M)
             }
             auxp = auxp->nextf;
         }
+        if (auxp->nextcol == NULL)
+            return 0;
         tempj = auxp->nextcol;
         while (tempj->columna != j)
         {
@@ -264,4 +267,83 @@ nodef *ProductoPorEscalar(int e, nodef *M)
         }
         return Me;
     }
+}
+
+// Funcion para determinar la matriz resultante de la suma de dos matrices dadas (5/7)
+
+nodef *Suma(nodef *M1, nodef *M2) {
+    nodef *M3; // Matriz resultante
+    nodef *auxpM1, *auxpM2, *auxpM3, *auxpPrevM3; // Punteros Aux.
+    nodecol *newCol = NULL;
+
+    auxpM1 = M1;
+    auxpM2 = M2;
+    int m = 0, n = 0, res = 0;  // Valores a sumar
+
+    M3 = new_nodef(M3, 1); // Agregar Nodo Fila inicial a Matriz resultante
+    auxpM3 = auxpPrevM3 = M3;
+
+    for (int i=1; i<=fila; i++) {
+
+        for (int j=1; j<=columna; j++) {
+
+            m = ObtenerElemento(i, j, auxpM1);
+            n = ObtenerElemento(i, j, auxpM2);
+
+            res = m + n;
+
+            if (res != 0) {
+                newCol = new_nodecol(newCol, j, res);
+                auxpM3->nextcol = add_endj(auxpM3->nextcol, newCol);
+            }
+        }
+
+        if (auxpM3->nextcol == NULL) { // Liberar espacio de fila de solo 0 ceros
+            free(auxpM3);
+            auxpM3 = auxpPrevM3;
+        }
+        auxpM3->nextf = new_nodef(auxpM3, i + 1); // Agregar Siguiente fila a Matriz resultante
+        auxpPrevM3 = auxpM3;
+        auxpM3 = auxpM3->nextf;
+    }
+
+    return M3;
+}
+
+// Funcion para determinar la matriz transpuesta (6/7)
+
+nodef *Transponer(nodef *M) {
+
+    int value;
+    nodef *MR;  // Matriz resultante
+    nodef *auxpM, *auxpMR, *auxpPrevMR; // Punteros Aux.
+    nodecol *newCol = NULL;
+
+    auxpM = M;
+
+    MR = new_nodef(MR, 1); // Agregar Nodo Fila inicial a Matriz resultante
+    auxpMR = auxpPrevMR = MR;
+
+    for (int i=1; i<=fila; i++) {
+
+        for (int j=1; j<=columna; j++) {
+
+            value = ObtenerElemento(j, i, auxpM);
+
+            if (value != 0) {
+                newCol = new_nodecol(newCol, j, value);
+                auxpMR->nextcol = add_endj(auxpMR->nextcol, newCol);
+            }
+        }
+
+        if (auxpMR->nextcol == NULL) { // Liberar espacio de fila de solo 0 ceros
+            free(auxpMR);
+            auxpMR = auxpPrevMR;
+        }
+        auxpMR->nextf = new_nodef(auxpMR, i + 1); // Agregar Siguiente fila a Matriz resultante
+        auxpPrevMR = auxpMR;
+        auxpMR = auxpMR->nextf;
+    }
+
+    return MR;
 }

@@ -13,21 +13,26 @@ int main()
 
     int f, col, v, escalar, validacion, operacion;
     nodef *matriz_escalar = NULL;
+    nodef *matriz_resultante;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
     // Solicitud de las dimensiones de la matriz
 
     printf("****** Ingrese la cantidad de filas de la 1era matriz ******\n");
     scanf("%d", &fila);
+    // fila = 2;
     printf("\n");
     printf("****** Ingrese la cantidad de columnas de la 1era matriz ******\n");
     scanf("%d", &columna);
+    // columna = 2;
     printf("\n");
     printf("****** Ingrese la cantidad de filas de la 2nda matriz ******\n");
     scanf("%d", &fila2);
+    // fila2 = 2;
     printf("\n");
     printf("****** Ingrese la cantidad de columnas de la 2nda matriz ******\n");
     scanf("%d", &columna2);
+    // columna2 = 2;
     printf("\n");
 
     if (fila < 0 || columna < 0 || fila2 < 0 || columna2 < 0)
@@ -156,7 +161,7 @@ int main()
             }
             else if (operacion == 2) // Busqueda de elemento (2/7)
             {
-                operacion == 0;
+                operacion = 0;
                 printf("\nIngrese la fila del elemento a buscar: ");
                 scanf("%d", &f);
                 printf("Ingrese la columna del elemento a buscar: ");
@@ -255,11 +260,42 @@ int main()
                 else
                     printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
             }
+            else if (operacion == 5)    // Sumar (5/7)
+            {
+                matriz_resultante = NULL;
+                if (fila != fila2 || columna != columna2)
+                    printf("\nError: Las matrices deben tener las mismas dimensiones.\n");
+                matriz_resultante = Suma(matriz1, matriz2);
+                Imprimir(matriz_resultante);
+                printf("\n\n");
+            }
+            else if (operacion == 6)    // Transponer (6/7)
+            {
+                matriz_resultante = NULL;
+                operacion = 0;
+                printf("\n¿Que matriz desea transponer la 1 o 2?.\n");
+                scanf("%d", &operacion);
+                if (operacion == 1)
+                {
+                    matriz_resultante = Transponer(matriz1);
+                    printf("\nVAMOS CONTIGO fila: %d\n", matriz_resultante->fila);
+                    Imprimir(matriz_resultante);
+                }
+                else if (operacion == 2)
+                {
+                    matriz_resultante = Transponer(matriz2);
+                    Imprimir(matriz_resultante);
+                }
+                else
+                    printf("\nError: Numero ingresado no corresponde a accion alguna. Volviendo a menu principal\n");
+                printf("\n\n");
+            }
             else if (operacion < 1 || operacion > 7)
             {
                 printf("\nHa decidido salir del programa.\n");
                 validacion = 1;
             }
+
         }
     }
 }
