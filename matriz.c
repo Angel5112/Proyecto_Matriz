@@ -46,7 +46,7 @@ nodecol* add_endj(nodecol* link, nodecol* new_link)
 int valor_aleatorio()
 {
     int valor;
-    valor = rand() % 2 - 1;
+    valor = rand() % 3;
     return valor;
 }
 
@@ -450,9 +450,35 @@ nodef *Producto(nodef *M1, nodef *M2)
                 auxcol2 = auxp2->nextcol;
                 for (z = 1; z < fila2 + 1; z++)
                 {
+                    if (auxcol == NULL && auxcol2 != NULL)
+                    {
+                        producto += 0 * auxcol2->valor;
+                        break;
+                    }
+                    else if (auxcol2 == NULL && auxcol != NULL)
+                    {
+                        producto += auxcol->valor * 0;
+                        break;
+                    }
+                    
+                    if (auxcol->columna > auxcol2->columna)
+                    {
+                        producto += 0 * auxcol2->valor;
+                        continue;
+                    }
+                    else if (auxcol2->columna > auxcol->columna)
+                    {
+                        producto += auxcol->valor * 0;
+                    }
+
                     producto += auxcol->valor * auxcol2->valor;
                     auxcol2 = auxcol2->next;
                     auxcol = auxcol->next;
+                    
+                    if (auxcol == NULL && auxcol2 == NULL)
+                    {
+                        break;
+                    }
                 }
                 auxcolmatriz_producto = new_nodecol(auxcolmatriz_producto, y, producto);
                 auxfmatriz_producto->nextcol = add_endj(auxfmatriz_producto->nextcol, auxcolmatriz_producto);

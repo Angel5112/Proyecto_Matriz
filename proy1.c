@@ -42,7 +42,7 @@ int main()
         // Creacion de Matriz 1
 
         printf("\n* Como desea asignarle valores a la Matriz 1?\n");
-        printf("\n1 = Automaticamente (numeros del -1 al 1)\n");
+        printf("\n1 = Automaticamente (numeros del 0 al 2)\n");
         printf("\n2 = Manualmente\n\n");
         scanf("%d", &operacion);   // Si operacion es un valor diferente de 1 o 2, se asignaran valores automaticos como prevencion
         printf("\n");
@@ -324,8 +324,10 @@ int main()
                 if (columna != fila2)
                     printf("\nError: Multiplicar matrices no es posible, pues la cantidad de columnas de matriz 1 es diferente a la cantidad de filas de la matriz 2\n\n");
                 else
+                {
                     matriz_producto = Producto(matriz1, matriz2);
                     Imprimir(matriz_producto);
+                }
 
             }
             else if (operacion < 1 || operacion > 7)
