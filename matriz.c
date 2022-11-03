@@ -459,6 +459,7 @@ nodef *Producto(nodef *M1, nodef *M2)
                 auxfmatriz_producto->nextcol = add_endj(auxfmatriz_producto->nextcol, auxcolmatriz_producto);
                 auxp2 = auxp2->nextf;
             }
+            auxp2 = matriz_trans;
             auxp = auxp->nextf;
             auxfmatriz_producto->nextf = new_nodef(auxfmatriz_producto->nextf, auxp->fila);
             auxfmatriz_producto = auxfmatriz_producto->nextf;
