@@ -201,17 +201,17 @@ int main()
                 scanf("%d", &operacion);
                 if (operacion == 1)
                 {
+                    printf("\nSe asignara el elemento en la Matriz 1\n");
+                    printf("\nIngrese la fila del elemento a cambiar: ");
+                    scanf("%d", &f);
+                    printf("Ingrese la columna del elemento a cambiar: ");
+                    scanf("%d", &col);
+                    printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
+                    scanf("%d", &v);
                     if (f > fila || col > columna)
                         printf("Error: Fila o Columna no puede ser mayor a la dimension original de la matriz. Volviendo a menu principal.\n");
                     else
                     {
-                        printf("\nSe asignara el elemento en la Matriz 1\n");
-                        printf("\nIngrese la fila del elemento a cambiar: ");
-                        scanf("%d", &f);
-                        printf("Ingrese la columna del elemento a cambiar: ");
-                        scanf("%d", &col);
-                        printf("\nIngrese el valor a asignar en la posicion indicada anteriormente: ");
-                        scanf("%d", &v);
                         matriz1 = AsignarElemento(f, col, v, matriz1);
                         printf("\nVolviendo al menu principal\n\n");
                     }

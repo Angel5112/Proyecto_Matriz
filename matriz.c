@@ -211,10 +211,8 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
     else
     {
         auxfp = M;
-        while (auxfp->nextf != NULL && auxfp->fila != i) // Aqui hacer lo mismo, es auxfp->next != NULL segurisimo
+        while (auxfp != NULL && auxfp->fila != i) 
         {
-            auxfp = auxfp->nextf;
-
             if (auxfp->fila > i)
             {
                 printf("\nFila no encontrada (Valor intermedio), se creara espacio para asignarla\n");
@@ -245,37 +243,39 @@ nodef *AsignarElemento(int i, int j, int x, nodef *M)
                 auxfp->nextf = auxfp2;
                 return M; 
             }
+            auxfp = auxfp->nextf;
         }
 
             auxcp = auxfp->nextcol;
             while (auxcp->next != NULL && auxcp->columna != j)
             {
                 auxcp = auxcp->next;
-            }
-            if (auxcp->columna < j)
-            {
-                printf("\nColumna no encontrada, se creara espacio para asignarla\n");
-                auxcp2 = new_nodecol(auxcp2, j, x);
-                auxcp->next = auxcp2;
-                return M;
-            }
-            else if (auxcp->columna > j)
-            {
-                // Se necesita un prev en el anterior para crear un nodo intermedio y enlazarlos todos
-                printf("\nColumna no encontrada, se creara espacio para asignarla\n");
-                auxcprev = auxfp->nextcol;
-                while (auxcprev->next != auxcp)
+                if (auxcp->next == NULL && auxcp->columna < j)
                 {
-                    auxcprev = auxcprev->next;
+                    printf("\nColumna no encontrada, se creara espacio para asignarla\n");
+                    auxcp2 = new_nodecol(auxcp2, j, x);
+                    auxcp->next = auxcp2;
+                    return M;
                 }
-                auxcprev->next = NULL;
-                auxcprev->next= new_nodecol(auxcprev->next, j, x);
-                auxcprev = auxcprev->next;
-                auxcprev->next = auxcp;
-                return M;  
+                else if (auxcp->next == NULL && auxcp->columna > j)
+                {
+                    // Se necesita un prev en el anterior para crear un nodo intermedio y enlazarlos todos
+                    printf("\nColumna no encontrada, se creara espacio para asignarla\n");
+                    auxcprev = auxfp->nextcol;
+                    while (auxcprev->next != auxcp)
+                    {
+                        auxcprev = auxcprev->next;
+                    }
+                    auxcprev->next = NULL;
+                    auxcprev->next= new_nodecol(auxcprev->next, j, x);
+                    auxcprev = auxcprev->next;
+                    auxcprev->next = auxcp;
+                    return M;  
+                }   
             }
+            auxcp->valor = x;
+            return M;
     }
-    return NULL;
 }
 
 // Funcion para determinar la matriz resultante del producto por un escalar (4/7)
