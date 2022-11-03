@@ -15,6 +15,7 @@ int main()
     nodef *matriz_escalar = NULL;
     nodef *matriz_resultante;
     nodef *matriz_suma = NULL;
+    nodef *matriz_producto = NULL;
     validacion = 0; // Variable a usar como key del ciclo del menu de procedimientos y operaciones
 
     // Solicitud de las dimensiones de la matriz
@@ -320,7 +321,12 @@ int main()
             }
             else if (operacion == 7)    // Multiplicar (7/7)
             {
-                //
+                if (columna != fila2)
+                    printf("\nError: Multiplicar matrices no es posible, pues la cantidad de columnas de matriz 1 es diferente a la cantidad de filas de la matriz 2\n\n");
+                else
+                    matriz_producto = Producto(matriz1, matriz2);
+                    Imprimir(matriz_producto);
+
             }
             else if (operacion < 1 || operacion > 7)
             {

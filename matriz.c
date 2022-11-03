@@ -409,6 +409,61 @@ nodef *Transponer(nodef *M) {
 
 // Funcion para determinar el producto de dos matrices (7/7)
 
-nodef *Producto(nodef *M1, nodef *M2) {
-    //
+nodef *Producto(nodef *M1, nodef *M2)
+{
+    if (M1 == NULL || M2 == NULL)
+    {
+        printf("\nUna de las matrices es nula, por lo tanto el producto sera otra matriz nula\n\n");
+        return NULL;
+    }
+    else
+    {
+        register int x, y, z;
+        int producto = 0;
+
+        // Declaracion de variables a usar en las matrices ya conocidas/creadas
+
+        nodef *matriz_trans = Transponer(M2);
+        nodef *auxp = M1;
+        nodef *auxp2 = matriz_trans;
+
+        // Declaracion de variables a usar para la creacion de la matriz producto
+
+        nodef *matriz_producto;
+        nodef *auxfmatriz_producto = NULL;
+
+        // Auxiliares para las columnas de las matrices a trabajar
+
+        nodecol *auxcol, *auxcol2, *auxcolmatriz_producto;
+
+        // Crear el primer elemento de la matriz producto
+
+        matriz_producto = new_nodef(matriz_producto, auxp->fila);
+        auxfmatriz_producto = matriz_producto;
+
+        for (x = 1; x < fila + 1; x++)
+        {
+            for (y = 1; y < columna2 + 1; y++)
+            {
+                producto = 0;
+                auxcol = auxp->nextcol;
+                auxcol2 = auxp2->nextcol;
+                auxp2 = matriz_trans;
+                for (z = 1; z < fila2 + 1; z++)
+                {
+                    producto += auxcol->valor * auxcol2->valor;
+                    auxcol2 = auxcol2->next;
+                    auxcol = auxcol->next;
+                }
+                auxcolmatriz_producto = new_nodecol(auxcolmatriz_producto, y, producto);
+                auxfmatriz_producto->nextcol = add_endj(auxfmatriz_producto->nextcol, auxcolmatriz_producto);
+                auxp2 = auxp2->nextf;
+            }
+            auxp = auxp->nextf;
+            auxfmatriz_producto->nextf = new_nodef(auxfmatriz_producto->nextf, auxp->fila);
+            auxfmatriz_producto = auxfmatriz_producto->nextf;
+        }
+        
+        return matriz_producto;
+    }
 }
