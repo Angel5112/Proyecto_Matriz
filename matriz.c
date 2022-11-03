@@ -448,7 +448,6 @@ nodef *Producto(nodef *M1, nodef *M2)
                 producto = 0;
                 auxcol = auxp->nextcol;
                 auxcol2 = auxp2->nextcol;
-                auxp2 = matriz_trans;
                 for (z = 1; z < fila2 + 1; z++)
                 {
                     producto += auxcol->valor * auxcol2->valor;
